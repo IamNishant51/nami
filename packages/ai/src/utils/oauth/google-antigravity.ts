@@ -235,7 +235,7 @@ export async function refreshAntigravityToken(refreshToken: string, projectId: s
 		headers: { "Content-Type": "application/x-www-form-urlencoded" },
 		body: new URLSearchParams({
 			client_id: CLIENT_ID,
-			client_secret: CLIENT_SECRET,
+			client_secret: GOOGLE_CLIENT_SECRET,
 			refresh_token: refreshToken,
 			grant_type: "refresh_token",
 		}),
@@ -380,7 +380,7 @@ export async function loginAntigravity(
 			},
 			body: new URLSearchParams({
 				client_id: CLIENT_ID,
-				client_secret: CLIENT_SECRET,
+				client_secret: GOOGLE_CLIENT_SECRET,
 				code,
 				grant_type: "authorization_code",
 				redirect_uri: REDIRECT_URI,
