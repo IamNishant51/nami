@@ -14379,3 +14379,20 @@ export const MODELS = {
 		} satisfies Model<"openai-completions">,
 	},
 } as const;
+
+// Ollama models
+export const OLLAMA_MODELS = [
+	"llama3.1",
+	"llama3.2",
+	"llama3.3",
+	"mistral",
+	"mixtral",
+	"phi3",
+	"qwen2",
+	"qwen2.5",
+	"qwen3",
+	"qwen3.5",
+	"codellama",
+	"deepseek-coder",
+	"deepseek-chat",
+] as const;

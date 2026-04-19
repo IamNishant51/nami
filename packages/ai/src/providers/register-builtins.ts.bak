@@ -17,6 +17,7 @@ import type { GoogleOptions } from "./google.js";
 import type { GoogleGeminiCliOptions } from "./google-gemini-cli.js";
 import type { GoogleVertexOptions } from "./google-vertex.js";
 import type { MistralOptions } from "./mistral.js";
+import type { OllamaOptions } from "./ollama.js";
 import { streamOllama, streamSimpleOllama } from "./ollama.js";
 import type { OpenAICodexResponsesOptions } from "./openai-codex-responses.js";
 import type { OpenAICompletionsOptions } from "./openai-completions.js";
@@ -371,6 +372,27 @@ export function registerBuiltInApiProviders(): void {
 		streamSimple: streamSimpleAnthropic,
 	});
 
+	// ... existing providers ...
+
+	registerApiProvider({
+		api: "ollama",
+		stream: (model, context, options) => {
+			return (async () => {
+				const mod = await import("./ollama.js");
+				return mod.streamOllama(model, context, options);
+			})();
+		},
+		streamSimple: (model, context, options) => {
+			return (async () => {
+				const mod = await import("./ollama.js");
+				return mod.streamSimpleOllama(model, context, options);
+			})();
+		},
+	});
+
+	// ... rest of the providers
+}
+
 	registerApiProvider({
 		api: "openai-completions",
 		stream: streamOpenAICompletions,
@@ -381,6 +403,14 @@ export function registerBuiltInApiProviders(): void {
 		api: "mistral-conversations",
 		stream: streamMistral,
 		streamSimple: streamSimpleMistral,
+	});
+
+	// Ollama provider - import lazily to avoid blocking startup
+	const ollamaModule = await import("./ollama.js");
+	registerApiProvider({
+		api: "ollama",
+		stream: ollamaModule.streamOllama,
+		streamSimple: ollamaModule.streamOllama as never,
 	});
 
 	registerApiProvider({
@@ -425,7 +455,7 @@ export function registerBuiltInApiProviders(): void {
 		streamSimple: streamSimpleBedrockLazy,
 	});
 
-	// Register Ollama
+	// Ollama provider
 	registerApiProvider({
 		api: "ollama",
 		stream: streamOllama,
@@ -438,4 +468,5 @@ export function resetApiProviders(): void {
 	registerBuiltInApiProviders();
 }
 
+// Initialize providers
 registerBuiltInApiProviders();
