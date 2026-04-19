@@ -8,7 +8,7 @@
  * paths relative to your cwd.
  */
 
-import { getModel } from "react-frameui/nami-ai";
+import { getModel } from "nami-ai";
 import {
 	AuthStorage,
 	createAgentSession,
@@ -19,7 +19,7 @@ import {
 	type ResourceLoader,
 	SessionManager,
 	SettingsManager,
-} from "react-frameui/nami-coding-agent";
+} from "nami-coding-agent";
 
 // Custom auth storage location
 const authStorage = AuthStorage.create("/tmp/my-agent/auth.json");

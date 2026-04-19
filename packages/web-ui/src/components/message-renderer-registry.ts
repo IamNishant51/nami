@@ -1,5 +1,5 @@
-import type { AgentMessage } from "react-frameui/nami-agent-core";
 import type { TemplateResult } from "lit";
+import type { AgentMessage } from "nami-agent-core";
 
 // Extract role type from AppMessage union
 export type MessageRole = AgentMessage["role"];

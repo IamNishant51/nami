@@ -9,9 +9,9 @@
  * 2. Use /tools to open the tool selector
  */
 
-import type { ExtensionAPI, ExtensionContext, ToolInfo } from "react-frameui/nami-coding-agent";
-import { getSettingsListTheme } from "react-frameui/nami-coding-agent";
-import { Container, type SettingItem, SettingsList } from "react-frameui/nami-tui";
+import type { ExtensionAPI, ExtensionContext, ToolInfo } from "nami-coding-agent";
+import { getSettingsListTheme } from "nami-coding-agent";
+import { Container, type SettingItem, SettingsList } from "nami-tui";
 
 // State persisted to session
 interface ToolsState {

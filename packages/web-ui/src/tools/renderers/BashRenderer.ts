@@ -1,6 +1,6 @@
-import type { ToolResultMessage } from "react-frameui/nami-ai";
 import { html } from "lit";
 import { SquareTerminal } from "lucide";
+import type { ToolResultMessage } from "nami-ai";
 import { i18n } from "../../utils/i18n.js";
 import { renderHeader } from "../renderer-registry.js";
 import type { ToolRenderer, ToolRenderResult } from "../types.js";

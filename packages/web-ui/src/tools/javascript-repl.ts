@@ -1,10 +1,10 @@
-import { i18n } from "react-frameui/mini-lit";
-import type { AgentTool } from "react-frameui/nami-agent-core";
-import type { ToolResultMessage } from "react-frameui/nami-ai";
 import { type Static, Type } from "@sinclair/typebox";
 import { html } from "lit";
 import { createRef, ref } from "lit/directives/ref.js";
 import { Code } from "lucide";
+import { i18n } from "mini-lit";
+import type { AgentTool } from "nami-agent-core";
+import type { ToolResultMessage } from "nami-ai";
 import { type SandboxFile, SandboxIframe, type SandboxResult } from "../components/SandboxedIframe.js";
 import type { SandboxRuntimeProvider } from "../components/sandbox/SandboxRuntimeProvider.js";
 import { JAVASCRIPT_REPL_TOOL_DESCRIPTION } from "../prompts/prompts.js";

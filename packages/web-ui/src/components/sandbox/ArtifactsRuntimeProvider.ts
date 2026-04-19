@@ -1,4 +1,4 @@
-import type { AgentMessage } from "react-frameui/nami-agent-core";
+import type { AgentMessage } from "nami-agent-core";
 import {
 	ARTIFACTS_RUNTIME_PROVIDER_DESCRIPTION_RO,
 	ARTIFACTS_RUNTIME_PROVIDER_DESCRIPTION_RW,

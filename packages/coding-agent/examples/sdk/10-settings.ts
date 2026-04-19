@@ -4,7 +4,7 @@
  * Override settings using SettingsManager.
  */
 
-import { createAgentSession, SessionManager, SettingsManager } from "react-frameui/nami-coding-agent";
+import { createAgentSession, SessionManager, SettingsManager } from "nami-coding-agent";
 
 // Load current settings (merged global + project)
 const settingsManagerFromDisk = SettingsManager.create();

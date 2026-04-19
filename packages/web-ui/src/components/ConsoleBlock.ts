@@ -1,8 +1,8 @@
-import { icon } from "react-frameui/mini-lit";
 import { LitElement } from "lit";
 import { property, state } from "lit/decorators.js";
 import { html } from "lit/html.js";
 import { Check, Copy } from "lucide";
+import { icon } from "mini-lit";
 import { i18n } from "../utils/i18n.js";
 
 export class ConsoleBlock extends LitElement {

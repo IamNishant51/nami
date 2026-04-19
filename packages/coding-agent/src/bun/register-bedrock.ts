@@ -1,4 +1,4 @@
-import { setBedrockProviderModule } from "react-frameui/nami-ai";
-import { bedrockProviderModule } from "react-frameui/nami-ai/bedrock-provider";
+import { setBedrockProviderModule } from "nami-ai";
+import { bedrockProviderModule } from "nami-ai/bedrock-provider";
 
 setBedrockProviderModule(bedrockProviderModule);

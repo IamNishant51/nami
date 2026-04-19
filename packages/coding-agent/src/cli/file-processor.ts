@@ -3,8 +3,8 @@
  */
 
 import { access, readFile, stat } from "node:fs/promises";
-import type { ImageContent } from "react-frameui/nami-ai";
 import chalk from "chalk";
+import type { ImageContent } from "nami-ai";
 import { resolve } from "path";
 import { resolveReadPath } from "../core/tools/path-utils.js";
 import { formatDimensionNote, resizeImage } from "../utils/image-resize.js";

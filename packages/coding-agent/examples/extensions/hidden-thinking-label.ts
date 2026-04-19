@@ -18,7 +18,7 @@
  *   /thinking-label          Reset to the default label
  */
 
-import type { ExtensionAPI, ExtensionContext } from "react-frameui/nami-coding-agent";
+import type { ExtensionAPI, ExtensionContext } from "nami-coding-agent";
 
 const DEFAULT_LABEL = "Pondering...";
 

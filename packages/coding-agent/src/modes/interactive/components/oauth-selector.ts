@@ -1,6 +1,6 @@
-import type { OAuthProviderInterface } from "react-frameui/nami-ai";
-import { getOAuthProviders } from "react-frameui/nami-ai/oauth";
-import { Container, getKeybindings, Spacer, TruncatedText } from "react-frameui/nami-tui";
+import type { OAuthProviderInterface } from "nami-ai";
+import { getOAuthProviders } from "nami-ai/oauth";
+import { Container, getKeybindings, Spacer, TruncatedText } from "nami-tui";
 import type { AuthStorage } from "../../../core/auth-storage.js";
 import { theme } from "../theme/theme.js";
 import { DynamicBorder } from "./dynamic-border.js";

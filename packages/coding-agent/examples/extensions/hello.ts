@@ -2,8 +2,8 @@
  * Hello Tool - Minimal custom tool example
  */
 
-import { Type } from "react-frameui/nami-ai";
-import { defineTool, type ExtensionAPI } from "react-frameui/nami-coding-agent";
+import { Type } from "nami-ai";
+import { defineTool, type ExtensionAPI } from "nami-coding-agent";
 
 const helloTool = defineTool({
 	name: "hello",

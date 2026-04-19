@@ -6,7 +6,7 @@
  * - `nami --mode json "prompt"` - JSON event stream
  */
 
-import type { AssistantMessage, ImageContent } from "react-frameui/nami-ai";
+import type { AssistantMessage, ImageContent } from "nami-ai";
 import type { AgentSessionRuntime } from "../core/agent-session-runtime.js";
 import { flushRawStdout, writeRawStdout } from "../core/output-guard.js";
 

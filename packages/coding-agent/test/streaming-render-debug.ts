@@ -4,9 +4,9 @@
  * Run with: npx tsx test/streaming-render-debug.ts
  */
 
-import type { AssistantMessage } from "react-frameui/nami-ai";
-import { ProcessTerminal, TUI } from "react-frameui/nami-tui";
 import { readFileSync } from "fs";
+import type { AssistantMessage } from "nami-ai";
+import { ProcessTerminal, TUI } from "nami-tui";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { AssistantMessageComponent } from "../src/modes/interactive/components/assistant-message.js";

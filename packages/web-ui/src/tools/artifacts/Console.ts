@@ -1,5 +1,5 @@
-import { icon } from "react-frameui/mini-lit";
-import "react-frameui/mini-lit/dist/CopyButton.js";
+import { icon } from "mini-lit";
+import "mini-lit/dist/CopyButton.js";
 import { html, LitElement, type TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { createRef, type Ref, ref } from "lit/directives/ref.js";

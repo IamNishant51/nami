@@ -4,7 +4,7 @@
  * Control session persistence: in-memory, new file, continue, or open specific.
  */
 
-import { createAgentSession, SessionManager } from "react-frameui/nami-coding-agent";
+import { createAgentSession, SessionManager } from "nami-coding-agent";
 
 // In-memory (no persistence)
 const { session: inMemory } = await createAgentSession({

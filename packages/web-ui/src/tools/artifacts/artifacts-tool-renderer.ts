@@ -1,10 +1,10 @@
-import "react-frameui/mini-lit/dist/CodeBlock.js";
-import type { ToolResultMessage } from "react-frameui/nami-ai";
+import "mini-lit/dist/CodeBlock.js";
 import { createRef, ref } from "lit/directives/ref.js";
 import { FileCode2 } from "lucide";
+import type { ToolResultMessage } from "nami-ai";
 import "../../components/ConsoleBlock.js";
-import { Diff } from "react-frameui/mini-lit/dist/Diff.js";
 import { html, type TemplateResult } from "lit";
+import { Diff } from "mini-lit/dist/Diff.js";
 import { i18n } from "../../utils/i18n.js";
 import { renderCollapsibleHeader, renderHeader } from "../renderer-registry.js";
 import type { ToolRenderer, ToolRenderResult } from "../types.js";

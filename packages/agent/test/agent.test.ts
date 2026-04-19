@@ -1,4 +1,4 @@
-import { type AssistantMessage, type AssistantMessageEvent, EventStream, getModel } from "react-frameui/nami-ai";
+import { type AssistantMessage, type AssistantMessageEvent, EventStream, getModel } from "nami-ai";
 import { describe, expect, it } from "vitest";
 import { Agent } from "../src/index.js";
 

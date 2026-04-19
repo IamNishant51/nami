@@ -1,9 +1,9 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { Api, Context, Model, OpenAICompletionsCompat } from "react-frameui/nami-ai";
-import { getApiProvider } from "react-frameui/nami-ai";
-import { getOAuthProvider } from "react-frameui/nami-ai/oauth";
+import type { Api, Context, Model, OpenAICompletionsCompat } from "nami-ai";
+import { getApiProvider } from "nami-ai";
+import { getOAuthProvider } from "nami-ai/oauth";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import { AuthStorage } from "../src/core/auth-storage.js";
 import { clearApiKeyCache, ModelRegistry } from "../src/core/model-registry.js";

@@ -12,11 +12,11 @@ import "../../components/SandboxedIframe.js";
 import { ArtifactElement } from "./ArtifactElement.js";
 import type { Console } from "./Console.js";
 import "./Console.js";
-import { icon } from "react-frameui/mini-lit";
-import { Button } from "react-frameui/mini-lit/dist/Button.js";
-import { CopyButton } from "react-frameui/mini-lit/dist/CopyButton.js";
-import { DownloadButton } from "react-frameui/mini-lit/dist/DownloadButton.js";
-import { PreviewCodeToggle } from "react-frameui/mini-lit/dist/PreviewCodeToggle.js";
+import { icon } from "mini-lit";
+import { Button } from "mini-lit/dist/Button.js";
+import { CopyButton } from "mini-lit/dist/CopyButton.js";
+import { DownloadButton } from "mini-lit/dist/DownloadButton.js";
+import { PreviewCodeToggle } from "mini-lit/dist/PreviewCodeToggle.js";
 
 @customElement("html-artifact")
 export class HtmlArtifact extends ArtifactElement {

@@ -7,8 +7,8 @@
  *   pi -e ./bash-spawn-hook.ts
  */
 
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
-import { createBashTool } from "react-frameui/nami-coding-agent";
+import type { ExtensionAPI } from "nami-coding-agent";
+import { createBashTool } from "nami-coding-agent";
 
 export default function (pi: ExtensionAPI) {
 	const cwd = process.cwd();

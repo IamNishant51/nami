@@ -11,7 +11,7 @@
  *   /followup And then?   - Sends while streaming with followUp delivery
  */
 
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
+import type { ExtensionAPI } from "nami-coding-agent";
 
 export default function (pi: ExtensionAPI) {
 	// Simple command that sends a user message

@@ -1,4 +1,4 @@
-import type { ImageContent } from "react-frameui/nami-ai";
+import type { ImageContent } from "nami-ai";
 import { applyExifOrientation } from "./exif-orientation.js";
 import { loadPhoton } from "./photon.js";
 

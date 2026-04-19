@@ -1,6 +1,6 @@
 import * as os from "node:os";
-import type { ImageContent, TextContent } from "react-frameui/nami-ai";
-import { getCapabilities, getImageDimensions, imageFallback } from "react-frameui/nami-tui";
+import type { ImageContent, TextContent } from "nami-ai";
+import { getCapabilities, getImageDimensions, imageFallback } from "nami-tui";
 import stripAnsi from "strip-ansi";
 import { sanitizeBinaryOutput } from "../../utils/shell.js";
 

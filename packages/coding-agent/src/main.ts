@@ -6,9 +6,9 @@
  */
 
 import { resolve } from "node:path";
-import { type ImageContent, modelsAreEqual, supportsXhigh } from "react-frameui/nami-ai";
-import { ProcessTerminal, setKeybindings, TUI } from "react-frameui/nami-tui";
 import chalk from "chalk";
+import { type ImageContent, modelsAreEqual, supportsXhigh } from "nami-ai";
+import { ProcessTerminal, setKeybindings, TUI } from "nami-tui";
 import { createInterface } from "readline";
 import { type Args, type Mode, parseArgs, printHelp } from "./cli/args.js";
 import { processFileArguments } from "./cli/file-processor.js";

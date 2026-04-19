@@ -4,8 +4,8 @@
  * Shows how to select a specific model and thinking level.
  */
 
-import { getModel } from "react-frameui/nami-ai";
-import { AuthStorage, createAgentSession, ModelRegistry } from "react-frameui/nami-coding-agent";
+import { getModel } from "nami-ai";
+import { AuthStorage, createAgentSession, ModelRegistry } from "nami-coding-agent";
 
 // Set up auth storage and model registry
 const authStorage = AuthStorage.create();

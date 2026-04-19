@@ -4,9 +4,9 @@
  * Escape in editor returns to options, Escape in options cancels
  */
 
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
-import { Editor, type EditorTheme, Key, matchesKey, Text, truncateToWidth } from "react-frameui/nami-tui";
 import { Type } from "@sinclair/typebox";
+import type { ExtensionAPI } from "nami-coding-agent";
+import { Editor, type EditorTheme, Key, matchesKey, Text, truncateToWidth } from "nami-tui";
 
 interface OptionWithDesc {
 	label: string;

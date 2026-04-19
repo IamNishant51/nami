@@ -12,9 +12,9 @@
  * The generated prompt appears as a draft in the editor for review/editing.
  */
 
-import { complete, type Message } from "react-frameui/nami-ai";
-import type { ExtensionAPI, SessionEntry } from "react-frameui/nami-coding-agent";
-import { BorderedLoader, convertToLlm, serializeConversation } from "react-frameui/nami-coding-agent";
+import { complete, type Message } from "nami-ai";
+import type { ExtensionAPI, SessionEntry } from "nami-coding-agent";
+import { BorderedLoader, convertToLlm, serializeConversation } from "nami-coding-agent";
 
 const SYSTEM_PROMPT = `You are a context transfer assistant. Given a conversation history and the user's goal for a new thread, generate a focused prompt that:
 

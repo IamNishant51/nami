@@ -1,8 +1,8 @@
-import { i18n } from "react-frameui/mini-lit";
-import { Select } from "react-frameui/mini-lit/dist/Select.js";
-import { getProviders } from "react-frameui/nami-ai";
 import { html, type TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import { i18n } from "mini-lit";
+import { Select } from "mini-lit/dist/Select.js";
+import { getProviders } from "nami-ai";
 import "../components/CustomProviderCard.js";
 import "../components/ProviderKeyInput.js";
 import { getAppStorage } from "../storage/app-storage.js";

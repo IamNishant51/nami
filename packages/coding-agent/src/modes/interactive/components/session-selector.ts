@@ -12,7 +12,7 @@ import {
 	Text,
 	truncateToWidth,
 	visibleWidth,
-} from "react-frameui/nami-tui";
+} from "nami-tui";
 import { KeybindingsManager } from "../../../core/keybindings.js";
 import type { SessionInfo, SessionListProgress } from "../../../core/session-manager.js";
 import { theme } from "../theme/theme.js";

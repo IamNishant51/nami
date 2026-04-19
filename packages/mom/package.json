@@ -1,5 +1,5 @@
 {
-	"name": "react-frameui/nami-mom",
+	"name": "nami-mom",
 	"version": "0.65.2",
 	"description": "Slack bot that delegates messages to the pi coding agent",
 	"type": "module",
@@ -20,9 +20,9 @@
 	},
 	"dependencies": {
 		"@anthropic-ai/sandbox-runtime": "^0.0.16",
-		"react-frameui/nami-agent-core": "^0.65.2",
-		"react-frameui/nami-ai": "^0.65.2",
-		"react-frameui/nami-coding-agent": "^0.65.2",
+		"nami-agent-core": "^0.65.2",
+		"nami-ai": "^0.65.2",
+		"nami-coding-agent": "^0.65.2",
 		"@sinclair/typebox": "^0.34.0",
 		"@slack/socket-mode": "^2.0.0",
 		"@slack/web-api": "^7.0.0",

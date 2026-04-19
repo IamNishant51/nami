@@ -1,6 +1,6 @@
-import { defaultEnglish, defaultGerman, type MiniLitRequiredMessages, setTranslations } from "react-frameui/mini-lit";
+import { defaultEnglish, defaultGerman, type MiniLitRequiredMessages, setTranslations } from "mini-lit";
 
-declare module "react-frameui/mini-lit" {
+declare module "mini-lit" {
 	interface i18nMessages extends MiniLitRequiredMessages {
 		Free: string;
 		"Input Required": string;
@@ -650,4 +650,4 @@ export const translations = {
 
 setTranslations(translations);
 
-export * from "react-frameui/mini-lit/dist/i18n.js";
+export * from "mini-lit/dist/i18n.js";

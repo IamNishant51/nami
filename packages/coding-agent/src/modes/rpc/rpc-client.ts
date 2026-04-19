@@ -5,8 +5,8 @@
  */
 
 import { type ChildProcess, spawn } from "node:child_process";
-import type { AgentEvent, AgentMessage, ThinkingLevel } from "react-frameui/nami-agent-core";
-import type { ImageContent } from "react-frameui/nami-ai";
+import type { AgentEvent, AgentMessage, ThinkingLevel } from "nami-agent-core";
+import type { ImageContent } from "nami-ai";
 import type { SessionStats } from "../../core/agent-session.js";
 import type { BashResult } from "../../core/bash-executor.js";
 import type { CompactionResult } from "../../core/compaction/index.js";

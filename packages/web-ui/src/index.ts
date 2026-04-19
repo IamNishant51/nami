@@ -1,7 +1,7 @@
 // Main chat interface
 
-export type { Agent, AgentMessage, AgentState, ThinkingLevel } from "react-frameui/nami-agent-core";
-export type { Model } from "react-frameui/nami-ai";
+export type { Agent, AgentMessage, AgentState, ThinkingLevel } from "nami-agent-core";
+export type { Model } from "nami-ai";
 export { ChatPanel } from "./ChatPanel.js";
 // Components
 export { AgentInterface } from "./components/AgentInterface.js";

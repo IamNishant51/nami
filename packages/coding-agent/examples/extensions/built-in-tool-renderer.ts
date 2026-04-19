@@ -23,9 +23,9 @@
  *   pi -e ./built-in-tool-renderer.ts
  */
 
-import type { BashToolDetails, EditToolDetails, ExtensionAPI, ReadToolDetails } from "react-frameui/nami-coding-agent";
-import { createBashTool, createEditTool, createReadTool, createWriteTool } from "react-frameui/nami-coding-agent";
-import { Text } from "react-frameui/nami-tui";
+import type { BashToolDetails, EditToolDetails, ExtensionAPI, ReadToolDetails } from "nami-coding-agent";
+import { createBashTool, createEditTool, createReadTool, createWriteTool } from "nami-coding-agent";
+import { Text } from "nami-tui";
 
 export default function (pi: ExtensionAPI) {
 	const cwd = process.cwd();

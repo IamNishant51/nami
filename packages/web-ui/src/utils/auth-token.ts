@@ -1,4 +1,4 @@
-import PromptDialog from "react-frameui/mini-lit/dist/PromptDialog.js";
+import PromptDialog from "mini-lit/dist/PromptDialog.js";
 import { i18n } from "./i18n.js";
 
 export async function getAuthToken(): Promise<string | undefined> {

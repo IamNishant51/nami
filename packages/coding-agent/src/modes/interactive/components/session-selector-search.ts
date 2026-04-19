@@ -1,4 +1,4 @@
-import { fuzzyMatch } from "react-frameui/nami-tui";
+import { fuzzyMatch } from "nami-tui";
 import type { SessionInfo } from "../../../core/session-manager.js";
 
 export type SortMode = "threaded" | "recent" | "relevance";

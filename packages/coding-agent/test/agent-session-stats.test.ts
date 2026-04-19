@@ -1,5 +1,5 @@
-import { Agent } from "react-frameui/nami-agent-core";
-import { type AssistantMessage, getModel, type Usage } from "react-frameui/nami-ai";
+import { Agent } from "nami-agent-core";
+import { type AssistantMessage, getModel, type Usage } from "nami-ai";
 import { describe, expect, it } from "vitest";
 import { AgentSession } from "../src/core/agent-session.js";
 import { AuthStorage } from "../src/core/auth-storage.js";

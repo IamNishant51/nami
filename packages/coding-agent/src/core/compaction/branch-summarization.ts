@@ -5,9 +5,9 @@
  * a summary of the branch being left so context isn't lost.
  */
 
-import type { AgentMessage } from "react-frameui/nami-agent-core";
-import type { Model } from "react-frameui/nami-ai";
-import { completeSimple } from "react-frameui/nami-ai";
+import type { AgentMessage } from "nami-agent-core";
+import type { Model } from "nami-ai";
+import { completeSimple } from "nami-ai";
 import {
 	convertToLlm,
 	createBranchSummaryMessage,

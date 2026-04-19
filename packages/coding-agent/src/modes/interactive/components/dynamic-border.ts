@@ -1,4 +1,4 @@
-import type { Component } from "react-frameui/nami-tui";
+import type { Component } from "nami-tui";
 import { theme } from "../theme/theme.js";
 
 /**

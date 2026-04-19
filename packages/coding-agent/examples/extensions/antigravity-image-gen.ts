@@ -29,9 +29,9 @@ import { randomUUID } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { StringEnum } from "react-frameui/nami-ai";
-import { type ExtensionAPI, getAgentDir, withFileMutationQueue } from "react-frameui/nami-coding-agent";
 import { type Static, Type } from "@sinclair/typebox";
+import { StringEnum } from "nami-ai";
+import { type ExtensionAPI, getAgentDir, withFileMutationQueue } from "nami-coding-agent";
 
 const PROVIDER = "google-antigravity";
 

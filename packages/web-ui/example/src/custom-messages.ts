@@ -1,8 +1,8 @@
-import { Alert } from "react-frameui/mini-lit/dist/Alert.js";
-import type { Message } from "react-frameui/nami-ai";
-import type { AgentMessage, MessageRenderer } from "react-frameui/nami-web-ui";
-import { defaultConvertToLlm, registerMessageRenderer } from "react-frameui/nami-web-ui";
 import { html } from "lit";
+import { Alert } from "mini-lit/dist/Alert.js";
+import type { Message } from "nami-ai";
+import type { AgentMessage, MessageRenderer } from "nami-web-ui";
+import { defaultConvertToLlm, registerMessageRenderer } from "nami-web-ui";
 
 // ============================================================================
 // 1. EXTEND AppMessage TYPE VIA DECLARATION MERGING
@@ -18,7 +18,7 @@ export interface SystemNotificationMessage {
 
 // Extend CustomAgentMessages interface via declaration merging
 // This must target pi-agent-core where CustomAgentMessages is defined
-declare module "react-frameui/nami-agent-core" {
+declare module "nami-agent-core" {
 	interface CustomAgentMessages {
 		"system-notification": SystemNotificationMessage;
 	}

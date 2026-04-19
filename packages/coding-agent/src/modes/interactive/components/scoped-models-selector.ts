@@ -1,15 +1,5 @@
-import type { Model } from "react-frameui/nami-ai";
-import {
-	Container,
-	type Focusable,
-	fuzzyFilter,
-	getKeybindings,
-	Input,
-	Key,
-	matchesKey,
-	Spacer,
-	Text,
-} from "react-frameui/nami-tui";
+import type { Model } from "nami-ai";
+import { Container, type Focusable, fuzzyFilter, getKeybindings, Input, Key, matchesKey, Spacer, Text } from "nami-tui";
 import { theme } from "../theme/theme.js";
 import { DynamicBorder } from "./dynamic-border.js";
 

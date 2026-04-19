@@ -1,4 +1,4 @@
-import type { Message } from "react-frameui/nami-ai";
+import type { Message } from "nami-ai";
 import { describe, expect, it } from "vitest";
 import { serializeConversation } from "../src/core/compaction/utils.js";
 

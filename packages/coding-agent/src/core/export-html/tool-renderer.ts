@@ -5,8 +5,8 @@
  * and converting the ANSI output to HTML.
  */
 
-import type { ImageContent, TextContent } from "react-frameui/nami-ai";
-import type { Component } from "react-frameui/nami-tui";
+import type { ImageContent, TextContent } from "nami-ai";
+import type { Component } from "nami-tui";
 import type { Theme } from "../../modes/interactive/theme/theme.js";
 import type { ToolDefinition, ToolRenderContext } from "../extensions/types.js";
 import { ansiLinesToHtml } from "./ansi-to-html.js";

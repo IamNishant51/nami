@@ -20,8 +20,8 @@ import {
 	type SimpleStreamOptions,
 	streamSimpleAnthropic,
 	streamSimpleOpenAIResponses,
-} from "react-frameui/nami-ai";
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
+} from "nami-ai";
+import type { ExtensionAPI } from "nami-coding-agent";
 
 // =============================================================================
 // Constants

@@ -1,4 +1,4 @@
-import { Container, Markdown, type MarkdownTheme, Spacer } from "react-frameui/nami-tui";
+import { Container, Markdown, type MarkdownTheme, Spacer } from "nami-tui";
 import { getMarkdownTheme, theme } from "../theme/theme.js";
 
 const OSC133_ZONE_START = "\x1b]133;A\x07";

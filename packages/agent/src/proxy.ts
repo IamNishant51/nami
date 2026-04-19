@@ -14,7 +14,7 @@ import {
 	type SimpleStreamOptions,
 	type StopReason,
 	type ToolCall,
-} from "react-frameui/nami-ai";
+} from "nami-ai";
 
 // Create stream class matching ProxyMessageEventStream
 class ProxyMessageEventStream extends EventStream<AssistantMessageEvent, AssistantMessage> {

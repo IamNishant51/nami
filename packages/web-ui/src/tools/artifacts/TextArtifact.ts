@@ -1,9 +1,9 @@
-import { CopyButton } from "react-frameui/mini-lit/dist/CopyButton.js";
-import { DownloadButton } from "react-frameui/mini-lit/dist/DownloadButton.js";
 import hljs from "highlight.js";
 import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
+import { CopyButton } from "mini-lit/dist/CopyButton.js";
+import { DownloadButton } from "mini-lit/dist/DownloadButton.js";
 import { i18n } from "../../utils/i18n.js";
 import { ArtifactElement } from "./ArtifactElement.js";
 

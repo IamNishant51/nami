@@ -15,7 +15,9 @@
  */
 
 import { mkdtemp, writeFile } from "node:fs/promises";
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
+import { Type } from "@sinclair/typebox";
+import { execSync } from "child_process";
+import type { ExtensionAPI } from "nami-coding-agent";
 import {
 	DEFAULT_MAX_BYTES,
 	DEFAULT_MAX_LINES,
@@ -23,10 +25,8 @@ import {
 	type TruncationResult,
 	truncateHead,
 	withFileMutationQueue,
-} from "react-frameui/nami-coding-agent";
-import { Text } from "react-frameui/nami-tui";
-import { Type } from "@sinclair/typebox";
-import { execSync } from "child_process";
+} from "nami-coding-agent";
+import { Text } from "nami-tui";
 import { tmpdir } from "os";
 import { join } from "path";
 

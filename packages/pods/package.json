@@ -1,5 +1,5 @@
 {
-	"name": "react-frameui/nami-pods",
+	"name": "nami-pods",
 	"version": "0.65.2",
 	"description": "CLI tool for managing vLLM deployments on GPU pods",
 	"type": "module",
@@ -33,7 +33,7 @@
 		"node": ">=20.0.0"
 	},
 	"dependencies": {
-		"react-frameui/nami-agent-core": "^0.65.2",
+		"nami-agent-core": "^0.65.2",
 		"chalk": "^5.5.0"
 	},
 	"devDependencies": {}

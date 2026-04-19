@@ -1,11 +1,11 @@
-import { i18n } from "react-frameui/mini-lit";
-import { Dialog, DialogContent, DialogHeader } from "react-frameui/mini-lit/dist/Dialog.js";
-import { Input } from "react-frameui/mini-lit/dist/Input.js";
-import { Label } from "react-frameui/mini-lit/dist/Label.js";
-import { Switch } from "react-frameui/mini-lit/dist/Switch.js";
-import { getProviders } from "react-frameui/nami-ai";
 import { html, LitElement, type TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { i18n } from "mini-lit";
+import { Dialog, DialogContent, DialogHeader } from "mini-lit/dist/Dialog.js";
+import { Input } from "mini-lit/dist/Input.js";
+import { Label } from "mini-lit/dist/Label.js";
+import { Switch } from "mini-lit/dist/Switch.js";
+import { getProviders } from "nami-ai";
 import "../components/ProviderKeyInput.js";
 import { getAppStorage } from "../storage/app-storage.js";
 

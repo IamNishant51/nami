@@ -1,4 +1,4 @@
-import type { ExtensionAPI, ExtensionContext } from "react-frameui/nami-coding-agent";
+import type { ExtensionAPI, ExtensionContext } from "nami-coding-agent";
 
 const COMPACT_THRESHOLD_TOKENS = 100_000;
 

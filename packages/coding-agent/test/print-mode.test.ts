@@ -1,4 +1,4 @@
-import type { AssistantMessage, ImageContent } from "react-frameui/nami-ai";
+import type { AssistantMessage, ImageContent } from "nami-ai";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { runPrintMode } from "../src/modes/print-mode.js";
 

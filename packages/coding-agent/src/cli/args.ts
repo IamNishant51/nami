@@ -2,8 +2,8 @@
  * CLI argument parsing and help display
  */
 
-import type { ThinkingLevel } from "react-frameui/nami-agent-core";
 import chalk from "chalk";
+import type { ThinkingLevel } from "nami-agent-core";
 import { APP_NAME, CONFIG_DIR_NAME, ENV_AGENT_DIR } from "../config.js";
 import type { ExtensionFlag } from "../core/extensions/types.js";
 import { allTools, type ToolName } from "../core/tools/index.js";

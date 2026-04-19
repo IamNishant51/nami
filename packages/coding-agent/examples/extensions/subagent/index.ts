@@ -16,12 +16,12 @@ import { spawn } from "node:child_process";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentToolResult } from "react-frameui/nami-agent-core";
-import type { Message } from "react-frameui/nami-ai";
-import { StringEnum } from "react-frameui/nami-ai";
-import { type ExtensionAPI, getMarkdownTheme, withFileMutationQueue } from "react-frameui/nami-coding-agent";
-import { Container, Markdown, Spacer, Text } from "react-frameui/nami-tui";
 import { Type } from "@sinclair/typebox";
+import type { AgentToolResult } from "nami-agent-core";
+import type { Message } from "nami-ai";
+import { StringEnum } from "nami-ai";
+import { type ExtensionAPI, getMarkdownTheme, withFileMutationQueue } from "nami-coding-agent";
+import { Container, Markdown, Spacer, Text } from "nami-tui";
 import { type AgentConfig, type AgentScope, discoverAgents } from "./agents.js";
 
 const MAX_PARALLEL_TASKS = 8;

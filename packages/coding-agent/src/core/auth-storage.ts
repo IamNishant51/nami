@@ -6,14 +6,9 @@
  * try to refresh tokens simultaneously.
  */
 
-import {
-	getEnvApiKey,
-	type OAuthCredentials,
-	type OAuthLoginCallbacks,
-	type OAuthProviderId,
-} from "react-frameui/nami-ai";
-import { getOAuthApiKey, getOAuthProvider, getOAuthProviders } from "react-frameui/nami-ai/oauth";
 import { chmodSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import { getEnvApiKey, type OAuthCredentials, type OAuthLoginCallbacks, type OAuthProviderId } from "nami-ai";
+import { getOAuthApiKey, getOAuthProvider, getOAuthProviders } from "nami-ai/oauth";
 import { dirname, join } from "path";
 import lockfile from "proper-lockfile";
 import { getAgentDir } from "../config.js";

@@ -10,7 +10,7 @@ type CopilotCredentials = OAuthCredentials & {
 	enterpriseUrl?: string;
 };
 
-const decode = (s: string) => atob(s);
+const _decode = (s: string) => atob(s);
 const CLIENT_ID = "";
 
 const COPILOT_HEADERS = {

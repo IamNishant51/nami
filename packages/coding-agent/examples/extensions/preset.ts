@@ -40,9 +40,9 @@
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import type { ExtensionAPI, ExtensionContext } from "react-frameui/nami-coding-agent";
-import { DynamicBorder, getAgentDir } from "react-frameui/nami-coding-agent";
-import { Container, Key, type SelectItem, SelectList, Text } from "react-frameui/nami-tui";
+import type { ExtensionAPI, ExtensionContext } from "nami-coding-agent";
+import { DynamicBorder, getAgentDir } from "nami-coding-agent";
+import { Container, Key, type SelectItem, SelectList, Text } from "nami-tui";
 
 // Preset configuration
 interface Preset {

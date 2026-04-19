@@ -2,8 +2,8 @@
  * Shared utilities for compaction and branch summarization.
  */
 
-import type { AgentMessage } from "react-frameui/nami-agent-core";
-import type { Message } from "react-frameui/nami-ai";
+import type { AgentMessage } from "nami-agent-core";
+import type { Message } from "nami-ai";
 
 // ============================================================================
 // File Operation Tracking

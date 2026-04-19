@@ -1,6 +1,6 @@
 import { join } from "node:path";
-import { Agent, type AgentMessage, type ThinkingLevel } from "react-frameui/nami-agent-core";
-import { type Message, type Model, streamSimple } from "react-frameui/nami-ai";
+import { Agent, type AgentMessage, type ThinkingLevel } from "nami-agent-core";
+import { type Message, type Model, streamSimple } from "nami-ai";
 import { getAgentDir, getDocsPath } from "../config.js";
 import { AgentSession } from "./agent-session.js";
 import { AuthStorage } from "./auth-storage.js";
@@ -140,7 +140,7 @@ function getDefaultAgentDir(): string {
  * const { session } = await createAgentSession();
  *
  * // With explicit model
- * import { getModel } from 'react-frameui/nami-ai';
+ * import { getModel } from 'nami-ai';
  * const { session } = await createAgentSession({
  *   model: getModel('anthropic', 'claude-opus-4-5'),
  *   thinkingLevel: 'high',

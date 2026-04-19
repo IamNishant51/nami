@@ -1,4 +1,4 @@
-import type { ImageContent } from "react-frameui/nami-ai";
+import type { ImageContent } from "nami-ai";
 import type { Args } from "./args.js";
 
 export interface InitialMessageInput {

@@ -1,4 +1,4 @@
-import { Editor, type EditorOptions, type EditorTheme, type TUI } from "react-frameui/nami-tui";
+import { Editor, type EditorOptions, type EditorTheme, type TUI } from "nami-tui";
 import type { AppKeybinding, KeybindingsManager } from "../../../core/keybindings.js";
 
 /**

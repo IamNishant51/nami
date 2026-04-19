@@ -1,6 +1,8 @@
-import "react-frameui/mini-lit/dist/ThemeToggle.js";
-import { Agent, type AgentMessage } from "react-frameui/nami-agent-core";
-import { getModel } from "react-frameui/nami-ai";
+import "mini-lit/dist/ThemeToggle.js";
+import { html, render } from "lit";
+import { Bell, History, Plus, Settings } from "lucide";
+import { Agent, type AgentMessage } from "nami-agent-core";
+import { getModel } from "nami-ai";
 import {
 	type AgentState,
 	ApiKeyPromptDialog,
@@ -18,13 +20,11 @@ import {
 	SettingsDialog,
 	SettingsStore,
 	setAppStorage,
-} from "react-frameui/nami-web-ui";
-import { html, render } from "lit";
-import { Bell, History, Plus, Settings } from "lucide";
+} from "nami-web-ui";
 import "./app.css";
-import { icon } from "react-frameui/mini-lit";
-import { Button } from "react-frameui/mini-lit/dist/Button.js";
-import { Input } from "react-frameui/mini-lit/dist/Input.js";
+import { icon } from "mini-lit";
+import { Button } from "mini-lit/dist/Button.js";
+import { Input } from "mini-lit/dist/Input.js";
 import { createSystemNotification, customConvertToLlm, registerCustomMessageRenderers } from "./custom-messages.js";
 
 // Register custom message renderers

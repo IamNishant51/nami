@@ -1,6 +1,6 @@
-import type { AgentTool, ThinkingLevel } from "react-frameui/nami-agent-core";
-import { fauxAssistantMessage, fauxToolCall, type Model } from "react-frameui/nami-ai";
 import { Type } from "@sinclair/typebox";
+import type { AgentTool, ThinkingLevel } from "nami-agent-core";
+import { fauxAssistantMessage, fauxToolCall, type Model } from "nami-ai";
 import { afterEach, describe, expect, it } from "vitest";
 import type { ExtensionAPI } from "../../src/index.js";
 import { createHarness, getAssistantTexts, type Harness } from "./harness.js";

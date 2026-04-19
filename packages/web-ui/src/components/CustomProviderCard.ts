@@ -1,7 +1,7 @@
-import { i18n } from "react-frameui/mini-lit";
-import { Button } from "react-frameui/mini-lit/dist/Button.js";
 import { html, LitElement, type TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { i18n } from "mini-lit";
+import { Button } from "mini-lit/dist/Button.js";
 import type { CustomProvider } from "../storage/stores/custom-providers-store.js";
 
 @customElement("custom-provider-card")

@@ -2,9 +2,9 @@
  * Extension runner - executes extensions and manages their lifecycle.
  */
 
-import type { AgentMessage } from "react-frameui/nami-agent-core";
-import type { ImageContent, Model } from "react-frameui/nami-ai";
-import type { KeyId } from "react-frameui/nami-tui";
+import type { AgentMessage } from "nami-agent-core";
+import type { ImageContent, Model } from "nami-ai";
+import type { KeyId } from "nami-tui";
 import { type Theme, theme } from "../../modes/interactive/theme/theme.js";
 import type { ResourceDiagnostic } from "../diagnostics.js";
 import type { KeybindingsConfig } from "../keybindings.js";

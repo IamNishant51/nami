@@ -1,5 +1,5 @@
 import { LMStudioClient } from "@lmstudio/sdk";
-import type { Model } from "react-frameui/nami-ai";
+import type { Model } from "nami-ai";
 import { Ollama } from "ollama/browser";
 
 /**

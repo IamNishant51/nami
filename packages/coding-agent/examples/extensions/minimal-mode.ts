@@ -16,7 +16,7 @@
  * Then use ctrl+o to toggle between minimal (collapsed) and full (expanded) views.
  */
 
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
+import type { ExtensionAPI } from "nami-coding-agent";
 import {
 	createBashTool,
 	createEditTool,
@@ -25,8 +25,8 @@ import {
 	createLsTool,
 	createReadTool,
 	createWriteTool,
-} from "react-frameui/nami-coding-agent";
-import { Text } from "react-frameui/nami-tui";
+} from "nami-coding-agent";
+import { Text } from "nami-tui";
 import { homedir } from "os";
 
 /**

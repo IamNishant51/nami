@@ -1,6 +1,6 @@
-import { DownloadButton } from "react-frameui/mini-lit/dist/DownloadButton.js";
 import { html, type TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { DownloadButton } from "mini-lit/dist/DownloadButton.js";
 import * as pdfjsLib from "pdfjs-dist";
 import { i18n } from "../../utils/i18n.js";
 import { ArtifactElement } from "./ArtifactElement.js";

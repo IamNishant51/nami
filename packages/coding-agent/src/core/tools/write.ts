@@ -1,7 +1,7 @@
-import type { AgentTool } from "react-frameui/nami-agent-core";
-import { Container, Text } from "react-frameui/nami-tui";
 import { type Static, Type } from "@sinclair/typebox";
 import { mkdir as fsMkdir, writeFile as fsWriteFile } from "fs/promises";
+import type { AgentTool } from "nami-agent-core";
+import { Container, Text } from "nami-tui";
 import { dirname } from "path";
 import { keyHint } from "../../modes/interactive/components/keybinding-hints.js";
 import { getLanguageFromPath, highlightCode } from "../../modes/interactive/theme/theme.js";

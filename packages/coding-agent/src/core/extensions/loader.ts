@@ -9,19 +9,19 @@ import { createRequire } from "node:module";
 import * as os from "node:os";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import { createJiti } from "react-frameui/jiti";
-import * as _bundledPiAgentCore from "react-frameui/nami-agent-core";
-import * as _bundledPiAi from "react-frameui/nami-ai";
-import * as _bundledPiAiOauth from "react-frameui/nami-ai/oauth";
-import type { KeyId } from "react-frameui/nami-tui";
-import * as _bundledPiTui from "react-frameui/nami-tui";
 // Static imports of packages that extensions may use.
 // These MUST be static so Bun bundles them into the compiled binary.
 // The virtualModules option then makes them available to extensions.
 import * as _bundledTypebox from "@sinclair/typebox";
+import { createJiti } from "jiti";
+import * as _bundledPiAgentCore from "nami-agent-core";
+import * as _bundledPiAi from "nami-ai";
+import * as _bundledPiAiOauth from "nami-ai/oauth";
+import type { KeyId } from "nami-tui";
+import * as _bundledPiTui from "nami-tui";
 import { getAgentDir, isBunBinary } from "../../config.js";
 // NOTE: This import works because loader.ts exports are NOT re-exported from index.ts,
-// avoiding a circular dependency. Extensions can import from react-frameui/nami-coding-agent.
+// avoiding a circular dependency. Extensions can import from nami-coding-agent.
 import * as _bundledPiCodingAgent from "../../index.js";
 import { createEventBus, type EventBus } from "../event-bus.js";
 import type { ExecOptions } from "../exec.js";
@@ -42,11 +42,11 @@ import type {
 /** Modules available to extensions via virtualModules (for compiled Bun binary) */
 const VIRTUAL_MODULES: Record<string, unknown> = {
 	"@sinclair/typebox": _bundledTypebox,
-	"react-frameui/nami-agent-core": _bundledPiAgentCore,
-	"react-frameui/nami-tui": _bundledPiTui,
-	"react-frameui/nami-ai": _bundledPiAi,
-	"react-frameui/nami-ai/oauth": _bundledPiAiOauth,
-	"react-frameui/nami-coding-agent": _bundledPiCodingAgent,
+	"nami-agent-core": _bundledPiAgentCore,
+	"nami-tui": _bundledPiTui,
+	"nami-ai": _bundledPiAi,
+	"nami-ai/oauth": _bundledPiAiOauth,
+	"nami-coding-agent": _bundledPiCodingAgent,
 };
 
 const require = createRequire(import.meta.url);
@@ -75,11 +75,11 @@ function getAliases(): Record<string, string> {
 	};
 
 	_aliases = {
-		"react-frameui/nami-coding-agent": packageIndex,
-		"react-frameui/nami-agent-core": resolveWorkspaceOrImport("agent/dist/index.js", "react-frameui/nami-agent-core"),
-		"react-frameui/nami-tui": resolveWorkspaceOrImport("tui/dist/index.js", "react-frameui/nami-tui"),
-		"react-frameui/nami-ai": resolveWorkspaceOrImport("ai/dist/index.js", "react-frameui/nami-ai"),
-		"react-frameui/nami-ai/oauth": resolveWorkspaceOrImport("ai/dist/oauth.js", "react-frameui/nami-ai/oauth"),
+		"nami-coding-agent": packageIndex,
+		"nami-agent-core": resolveWorkspaceOrImport("agent/dist/index.js", "nami-agent-core"),
+		"nami-tui": resolveWorkspaceOrImport("tui/dist/index.js", "nami-tui"),
+		"nami-ai": resolveWorkspaceOrImport("ai/dist/index.js", "nami-ai"),
+		"nami-ai/oauth": resolveWorkspaceOrImport("ai/dist/oauth.js", "nami-ai/oauth"),
 		"@sinclair/typebox": typeboxRoot,
 	};
 

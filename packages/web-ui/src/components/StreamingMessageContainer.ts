@@ -1,7 +1,7 @@
-import type { AgentMessage, AgentTool } from "react-frameui/nami-agent-core";
-import type { ToolResultMessage } from "react-frameui/nami-ai";
 import { html, LitElement } from "lit";
 import { property, state } from "lit/decorators.js";
+import type { AgentMessage, AgentTool } from "nami-agent-core";
+import type { ToolResultMessage } from "nami-ai";
 
 export class StreamingMessageContainer extends LitElement {
 	@property({ type: Array }) tools: AgentTool[] = [];

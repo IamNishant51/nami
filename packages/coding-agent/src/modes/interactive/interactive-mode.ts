@@ -7,8 +7,9 @@ import * as crypto from "node:crypto";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentMessage } from "react-frameui/nami-agent-core";
-import type { AssistantMessage, ImageContent, Message, Model, OAuthProviderId } from "react-frameui/nami-ai";
+import { spawn, spawnSync } from "child_process";
+import type { AgentMessage } from "nami-agent-core";
+import type { AssistantMessage, ImageContent, Message, Model, OAuthProviderId } from "nami-ai";
 import type {
 	AutocompleteItem,
 	EditorComponent,
@@ -19,7 +20,7 @@ import type {
 	OverlayHandle,
 	OverlayOptions,
 	SlashCommand,
-} from "react-frameui/nami-tui";
+} from "nami-tui";
 import {
 	CombinedAutocompleteProvider,
 	type Component,
@@ -35,8 +36,7 @@ import {
 	TruncatedText,
 	TUI,
 	visibleWidth,
-} from "react-frameui/nami-tui";
-import { spawn, spawnSync } from "child_process";
+} from "nami-tui";
 import {
 	APP_NAME,
 	getAgentDir,
@@ -654,7 +654,7 @@ export class InteractiveMode {
 		if (process.env.PI_SKIP_VERSION_CHECK || process.env.PI_OFFLINE) return undefined;
 
 		try {
-			const response = await fetch("https://registry.npmjs.org/react-frameui/nami-coding-agent/latest", {
+			const response = await fetch("https://registry.npmjs.org/nami-coding-agent/latest", {
 				signal: AbortSignal.timeout(10000),
 			});
 			if (!response.ok) return undefined;
@@ -3069,7 +3069,7 @@ export class InteractiveMode {
 	}
 
 	showNewVersionNotification(newVersion: string): void {
-		const action = theme.fg("accent", getUpdateInstruction("react-frameui/nami-coding-agent"));
+		const action = theme.fg("accent", getUpdateInstruction("nami-coding-agent"));
 		const updateInstruction = theme.fg("muted", `New version ${newVersion} is available. `) + action;
 		const changelogUrl = theme.fg(
 			"accent",

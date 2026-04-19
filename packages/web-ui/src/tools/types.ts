@@ -1,5 +1,5 @@
-import type { ToolResultMessage } from "react-frameui/nami-ai";
 import type { TemplateResult } from "lit";
+import type { ToolResultMessage } from "nami-ai";
 
 export interface ToolRenderResult {
 	content: TemplateResult;

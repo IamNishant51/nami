@@ -1,7 +1,7 @@
-import { icon } from "react-frameui/mini-lit";
 import { html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { ChevronRight } from "lucide";
+import { icon } from "mini-lit";
 
 @customElement("thinking-block")
 export class ThinkingBlock extends LitElement {

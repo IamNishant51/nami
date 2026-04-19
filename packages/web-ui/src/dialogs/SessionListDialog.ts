@@ -1,7 +1,7 @@
-import { DialogContent, DialogHeader } from "react-frameui/mini-lit/dist/Dialog.js";
-import { DialogBase } from "react-frameui/mini-lit/dist/DialogBase.js";
 import { html } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import { DialogContent, DialogHeader } from "mini-lit/dist/Dialog.js";
+import { DialogBase } from "mini-lit/dist/DialogBase.js";
 import { getAppStorage } from "../storage/app-storage.js";
 import type { SessionMetadata } from "../storage/types.js";
 import { formatUsage } from "../utils/format.js";

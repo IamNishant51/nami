@@ -9,7 +9,7 @@
  *   ping                        → "pong" (instant, no LLM)
  *   time                        → current time (instant, no LLM)
  */
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
+import type { ExtensionAPI } from "nami-coding-agent";
 
 export default function (pi: ExtensionAPI) {
 	pi.on("input", async (event, ctx) => {

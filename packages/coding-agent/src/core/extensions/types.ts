@@ -8,12 +8,8 @@
  * - Interact with the user via UI primitives
  */
 
-import type {
-	AgentMessage,
-	AgentToolResult,
-	AgentToolUpdateCallback,
-	ThinkingLevel,
-} from "react-frameui/nami-agent-core";
+import type { Static, TSchema } from "@sinclair/typebox";
+import type { AgentMessage, AgentToolResult, AgentToolUpdateCallback, ThinkingLevel } from "nami-agent-core";
 import type {
 	Api,
 	AssistantMessageEvent,
@@ -26,7 +22,7 @@ import type {
 	SimpleStreamOptions,
 	TextContent,
 	ToolResultMessage,
-} from "react-frameui/nami-ai";
+} from "nami-ai";
 import type {
 	AutocompleteItem,
 	Component,
@@ -36,8 +32,7 @@ import type {
 	OverlayHandle,
 	OverlayOptions,
 	TUI,
-} from "react-frameui/nami-tui";
-import type { Static, TSchema } from "@sinclair/typebox";
+} from "nami-tui";
 import type { Theme } from "../../modes/interactive/theme/theme.js";
 import type { BashResult } from "../bash-executor.js";
 import type { CompactionPreparation, CompactionResult } from "../compaction/index.js";
@@ -194,12 +189,12 @@ export interface ExtensionUIContext {
 	 * - `keybindings`: KeybindingsManager for app-level keybindings
 	 *
 	 * For full app keybinding support (escape, ctrl+d, model switching, etc.),
-	 * extend `CustomEditor` from `react-frameui/nami-coding-agent` and call
+	 * extend `CustomEditor` from `nami-coding-agent` and call
 	 * `super.handleInput(data)` for keys you don't handle.
 	 *
 	 * @example
 	 * ```ts
-	 * import { CustomEditor } from "react-frameui/nami-coding-agent";
+	 * import { CustomEditor } from "nami-coding-agent";
 	 *
 	 * class VimEditor extends CustomEditor {
 	 *   private mode: "normal" | "insert" = "insert";

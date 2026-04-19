@@ -5,8 +5,8 @@
  * (logo + keybinding hints) with a custom component showing the pi mascot.
  */
 
-import type { ExtensionAPI, Theme } from "react-frameui/nami-coding-agent";
-import { VERSION } from "react-frameui/nami-coding-agent";
+import type { ExtensionAPI, Theme } from "nami-coding-agent";
+import { VERSION } from "nami-coding-agent";
 
 // --- PI MASCOT ---
 // Based on pi_mascot.ts - the pi agent character

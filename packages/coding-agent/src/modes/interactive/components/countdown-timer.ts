@@ -2,7 +2,7 @@
  * Reusable countdown timer for dialog components.
  */
 
-import type { TUI } from "react-frameui/nami-tui";
+import type { TUI } from "nami-tui";
 
 export class CountdownTimer {
 	private intervalId: ReturnType<typeof setInterval> | undefined;

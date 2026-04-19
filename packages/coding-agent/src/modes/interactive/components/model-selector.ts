@@ -1,14 +1,5 @@
-import { type Model, modelsAreEqual } from "react-frameui/nami-ai";
-import {
-	Container,
-	type Focusable,
-	fuzzyFilter,
-	getKeybindings,
-	Input,
-	Spacer,
-	Text,
-	type TUI,
-} from "react-frameui/nami-tui";
+import { type Model, modelsAreEqual } from "nami-ai";
+import { Container, type Focusable, fuzzyFilter, getKeybindings, Input, Spacer, Text, type TUI } from "nami-tui";
 import type { ModelRegistry } from "../../../core/model-registry.js";
 import type { SettingsManager } from "../../../core/settings-manager.js";
 import { theme } from "../theme/theme.js";

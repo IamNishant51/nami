@@ -1,9 +1,9 @@
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { AgentTool } from "react-frameui/nami-agent-core";
-import { fauxAssistantMessage, fauxToolCall, type Model } from "react-frameui/nami-ai";
 import { Type } from "@sinclair/typebox";
+import type { AgentTool } from "nami-agent-core";
+import { fauxAssistantMessage, fauxToolCall, type Model } from "nami-ai";
 import { afterEach, describe, expect, it } from "vitest";
 import type { PromptTemplate } from "../../src/core/prompt-templates.js";
 import { createSyntheticSourceInfo } from "../../src/core/source-info.js";

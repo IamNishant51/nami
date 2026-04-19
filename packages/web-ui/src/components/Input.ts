@@ -1,6 +1,6 @@
-import { type BaseComponentProps, fc } from "react-frameui/mini-lit/dist/mini.js";
 import { html } from "lit";
 import { type Ref, ref } from "lit/directives/ref.js";
+import { type BaseComponentProps, fc } from "mini-lit/dist/mini.js";
 import { i18n } from "../utils/i18n.js";
 
 export type InputType = "text" | "email" | "password" | "number" | "url" | "tel" | "search";

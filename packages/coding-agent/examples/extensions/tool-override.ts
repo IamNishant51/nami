@@ -20,11 +20,11 @@
  *   pi -e ./tool-override.ts
  */
 
-import type { TextContent } from "react-frameui/nami-ai";
-import { type ExtensionAPI, getAgentDir, withFileMutationQueue } from "react-frameui/nami-coding-agent";
 import { Type } from "@sinclair/typebox";
 import { constants, readFileSync } from "fs";
 import { access, appendFile, readFile } from "fs/promises";
+import type { TextContent } from "nami-ai";
+import { type ExtensionAPI, getAgentDir, withFileMutationQueue } from "nami-coding-agent";
 import { join, resolve } from "path";
 
 const LOG_FILE = join(getAgentDir(), "read-access.log");

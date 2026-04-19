@@ -1,5 +1,7 @@
-import { Agent, type AgentEvent } from "react-frameui/nami-agent-core";
-import { getModel, type ImageContent } from "react-frameui/nami-ai";
+import { existsSync, readFileSync } from "fs";
+import { mkdir, writeFile } from "fs/promises";
+import { Agent, type AgentEvent } from "nami-agent-core";
+import { getModel, type ImageContent } from "nami-ai";
 import {
 	AgentSession,
 	AuthStorage,
@@ -11,9 +13,7 @@ import {
 	type ResourceLoader,
 	SessionManager,
 	type Skill,
-} from "react-frameui/nami-coding-agent";
-import { existsSync, readFileSync } from "fs";
-import { mkdir, writeFile } from "fs/promises";
+} from "nami-coding-agent";
 import { homedir } from "os";
 import { join } from "path";
 import { createMomSettingsManager, syncLogToSessionManager } from "./context.js";

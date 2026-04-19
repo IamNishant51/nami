@@ -1,4 +1,4 @@
-import type { AgentTool } from "react-frameui/nami-agent-core";
+import type { AgentTool } from "nami-agent-core";
 import type { Executor } from "../sandbox.js";
 import { attachTool } from "./attach.js";
 import { createBashTool } from "./bash.js";

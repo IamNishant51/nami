@@ -1,5 +1,5 @@
-import type { ThinkingLevel } from "react-frameui/nami-agent-core";
-import type { Transport } from "react-frameui/nami-ai";
+import type { ThinkingLevel } from "nami-agent-core";
+import type { Transport } from "nami-ai";
 import {
 	Container,
 	getCapabilities,
@@ -10,7 +10,7 @@ import {
 	SettingsList,
 	Spacer,
 	Text,
-} from "react-frameui/nami-tui";
+} from "nami-tui";
 import { getSelectListTheme, getSettingsListTheme, theme } from "../theme/theme.js";
 import { DynamicBorder } from "./dynamic-border.js";
 

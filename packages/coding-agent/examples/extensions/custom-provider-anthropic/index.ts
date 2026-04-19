@@ -42,14 +42,14 @@ import {
 	type Tool,
 	type ToolCall,
 	type ToolResultMessage,
-} from "react-frameui/nami-ai";
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
+} from "nami-ai";
+import type { ExtensionAPI } from "nami-coding-agent";
 
 // =============================================================================
 // OAuth Implementation (copied from packages/ai/src/utils/oauth/anthropic.ts)
 // =============================================================================
 
-const decode = (s: string) => atob(s);
+const _decode = (s: string) => atob(s);
 const CLIENT_ID = decode("OWQxYzI1MGEtZTYxYi00NGQ5LTg4ZWQtNTk0NGQxOTYyZjVl");
 const AUTHORIZE_URL = "https://claude.ai/oauth/authorize";
 const TOKEN_URL = "https://console.anthropic.com/v1/oauth/token";

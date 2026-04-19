@@ -5,9 +5,9 @@
  * Requires: npm install in this directory
  */
 
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
 import { Type } from "@sinclair/typebox";
 import ms from "ms";
+import type { ExtensionAPI } from "nami-coding-agent";
 
 export default function (pi: ExtensionAPI) {
 	// Register a tool that uses ms

@@ -1,9 +1,9 @@
-import { i18n } from "react-frameui/mini-lit";
-import { Badge } from "react-frameui/mini-lit/dist/Badge.js";
-import { Button } from "react-frameui/mini-lit/dist/Button.js";
-import { type Context, complete, getModel } from "react-frameui/nami-ai";
 import { html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { i18n } from "mini-lit";
+import { Badge } from "mini-lit/dist/Badge.js";
+import { Button } from "mini-lit/dist/Button.js";
+import { type Context, complete, getModel } from "nami-ai";
 import { getAppStorage } from "../storage/app-storage.js";
 import { applyProxyIfNeeded } from "../utils/proxy-utils.js";
 import { Input } from "./Input.js";

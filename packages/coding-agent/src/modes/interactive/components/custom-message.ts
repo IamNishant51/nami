@@ -1,6 +1,6 @@
-import type { TextContent } from "react-frameui/nami-ai";
-import type { Component } from "react-frameui/nami-tui";
-import { Box, Container, Markdown, type MarkdownTheme, Spacer, Text } from "react-frameui/nami-tui";
+import type { TextContent } from "nami-ai";
+import type { Component } from "nami-tui";
+import { Box, Container, Markdown, type MarkdownTheme, Spacer, Text } from "nami-tui";
 import type { MessageRenderer } from "../../../core/extensions/types.js";
 import type { CustomMessage } from "../../../core/messages.js";
 import { getMarkdownTheme, theme } from "../theme/theme.js";

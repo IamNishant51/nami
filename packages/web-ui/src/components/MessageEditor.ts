@@ -1,15 +1,15 @@
-import { icon } from "react-frameui/mini-lit";
-import { Button } from "react-frameui/mini-lit/dist/Button.js";
-import { Select, type SelectOption } from "react-frameui/mini-lit/dist/Select.js";
-import type { Model } from "react-frameui/nami-ai";
 import { html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { createRef, ref } from "lit/directives/ref.js";
 import { Brain, Loader2, Paperclip, Send, Sparkles, Square } from "lucide";
+import { icon } from "mini-lit";
+import { Button } from "mini-lit/dist/Button.js";
+import { Select, type SelectOption } from "mini-lit/dist/Select.js";
+import type { Model } from "nami-ai";
 import { type Attachment, loadAttachment } from "../utils/attachment-utils.js";
 import { i18n } from "../utils/i18n.js";
 import "./AttachmentTile.js";
-import type { ThinkingLevel } from "react-frameui/nami-agent-core";
+import type { ThinkingLevel } from "nami-agent-core";
 
 @customElement("message-editor")
 export class MessageEditor extends LitElement {

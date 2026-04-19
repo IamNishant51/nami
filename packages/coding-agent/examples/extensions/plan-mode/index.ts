@@ -12,10 +12,10 @@
  * - Progress tracking widget during execution
  */
 
-import type { AgentMessage } from "react-frameui/nami-agent-core";
-import type { AssistantMessage, TextContent } from "react-frameui/nami-ai";
-import type { ExtensionAPI, ExtensionContext } from "react-frameui/nami-coding-agent";
-import { Key } from "react-frameui/nami-tui";
+import type { AgentMessage } from "nami-agent-core";
+import type { AssistantMessage, TextContent } from "nami-ai";
+import type { ExtensionAPI, ExtensionContext } from "nami-coding-agent";
+import { Key } from "nami-tui";
 import { extractTodoItems, isSafeCommand, markCompletedSteps, type TodoItem } from "./utils.js";
 
 // Tools

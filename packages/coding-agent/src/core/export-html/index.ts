@@ -1,5 +1,5 @@
-import type { AgentState } from "react-frameui/nami-agent-core";
 import { existsSync, readFileSync, writeFileSync } from "fs";
+import type { AgentState } from "nami-agent-core";
 import { basename, join } from "path";
 import { APP_NAME, getExportTemplateDir } from "../../config.js";
 import { getResolvedThemeColors, getThemeExportColors } from "../../modes/interactive/theme/theme.js";

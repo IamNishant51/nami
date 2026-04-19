@@ -1,5 +1,5 @@
-import type { ThinkingLevel } from "react-frameui/nami-agent-core";
-import { Container, type SelectItem, SelectList, type SelectListLayoutOptions } from "react-frameui/nami-tui";
+import type { ThinkingLevel } from "nami-agent-core";
+import { Container, type SelectItem, SelectList, type SelectListLayoutOptions } from "nami-tui";
 import { getSelectListTheme } from "../theme/theme.js";
 import { DynamicBorder } from "./dynamic-border.js";
 

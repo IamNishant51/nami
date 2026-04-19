@@ -10,10 +10,10 @@
  * correct for that point in history.
  */
 
-import { StringEnum } from "react-frameui/nami-ai";
-import type { ExtensionAPI, ExtensionContext, Theme } from "react-frameui/nami-coding-agent";
-import { matchesKey, Text, truncateToWidth } from "react-frameui/nami-tui";
 import { Type } from "@sinclair/typebox";
+import { StringEnum } from "nami-ai";
+import type { ExtensionAPI, ExtensionContext, Theme } from "nami-coding-agent";
+import { matchesKey, Text, truncateToWidth } from "nami-tui";
 
 interface Todo {
 	id: number;

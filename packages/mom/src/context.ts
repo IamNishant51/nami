@@ -10,9 +10,9 @@
  * - createMomSettingsManager: Creates a SettingsManager backed by workspace settings.json
  */
 
-import type { UserMessage } from "react-frameui/nami-ai";
-import { type SessionManager, type SessionMessageEntry, SettingsManager } from "react-frameui/nami-coding-agent";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import type { UserMessage } from "nami-ai";
+import { type SessionManager, type SessionMessageEntry, SettingsManager } from "nami-coding-agent";
 import { dirname, join } from "path";
 
 // ============================================================================

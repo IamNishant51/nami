@@ -3,8 +3,8 @@
  * Uses Kitty keyboard protocol for smooth movement (press/release detection)
  */
 
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
-import { isKeyRelease, Key, matchesKey, visibleWidth } from "react-frameui/nami-tui";
+import type { ExtensionAPI } from "nami-coding-agent";
+import { isKeyRelease, Key, matchesKey, visibleWidth } from "nami-tui";
 
 const GAME_WIDTH = 60;
 const GAME_HEIGHT = 24;

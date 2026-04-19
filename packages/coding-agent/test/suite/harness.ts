@@ -5,10 +5,10 @@
 import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { AgentMessage, AgentTool } from "react-frameui/nami-agent-core";
-import { Agent } from "react-frameui/nami-agent-core";
-import type { FauxModelDefinition, FauxProviderRegistration, FauxResponseStep, Model } from "react-frameui/nami-ai";
-import { registerFauxProvider } from "react-frameui/nami-ai";
+import type { AgentMessage, AgentTool } from "nami-agent-core";
+import { Agent } from "nami-agent-core";
+import type { FauxModelDefinition, FauxProviderRegistration, FauxResponseStep, Model } from "nami-ai";
+import { registerFauxProvider } from "nami-ai";
 import { AgentSession, type AgentSessionEvent } from "../../src/core/agent-session.js";
 import { AuthStorage } from "../../src/core/auth-storage.js";
 import type { ExtensionRunner } from "../../src/core/extensions/index.js";

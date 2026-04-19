@@ -11,7 +11,7 @@ import {
 	DefaultResourceLoader,
 	SessionManager,
 	type Skill,
-} from "react-frameui/nami-coding-agent";
+} from "nami-coding-agent";
 
 // Or define custom skills inline
 const customSkill: Skill = {

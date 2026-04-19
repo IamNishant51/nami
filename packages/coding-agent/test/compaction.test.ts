@@ -1,7 +1,7 @@
-import type { AgentMessage } from "react-frameui/nami-agent-core";
-import type { AssistantMessage, Usage } from "react-frameui/nami-ai";
-import { getModel } from "react-frameui/nami-ai";
 import { readFileSync } from "fs";
+import type { AgentMessage } from "nami-agent-core";
+import type { AssistantMessage, Usage } from "nami-ai";
+import { getModel } from "nami-ai";
 import { join } from "path";
 import { beforeEach, describe, expect, it } from "vitest";
 import {

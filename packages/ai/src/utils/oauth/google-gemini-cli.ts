@@ -23,7 +23,7 @@ if (typeof process !== "undefined" && (process.versions?.node || process.version
 	});
 }
 
-const decode = (s: string) => atob(s);
+const _decode = (s: string) => atob(s);
 const CLIENT_ID = "";
 const GOOGLE_CLIENT_SECRET = "";
 const REDIRECT_URI = "http://localhost:8085/oauth2callback";

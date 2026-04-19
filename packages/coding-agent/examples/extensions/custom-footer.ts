@@ -8,9 +8,9 @@
  * Token stats come from ctx.sessionManager/ctx.model (already accessible).
  */
 
-import type { AssistantMessage } from "react-frameui/nami-ai";
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
-import { truncateToWidth, visibleWidth } from "react-frameui/nami-tui";
+import type { AssistantMessage } from "nami-ai";
+import type { ExtensionAPI } from "nami-coding-agent";
+import { truncateToWidth, visibleWidth } from "nami-tui";
 
 export default function (pi: ExtensionAPI) {
 	let enabled = false;

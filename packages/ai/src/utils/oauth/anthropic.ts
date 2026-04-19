@@ -24,7 +24,7 @@ type NodeApis = {
 let nodeApis: NodeApis | null = null;
 let nodeApisPromise: Promise<NodeApis> | null = null;
 
-const decode = (s: string) => atob(s);
+const _decode = (s: string) => atob(s);
 const CLIENT_ID = "";
 const AUTHORIZE_URL = "https://claude.ai/oauth/authorize";
 const TOKEN_URL = "https://platform.claude.com/v1/oauth/token";

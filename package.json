@@ -47,8 +47,8 @@
 	},
 	"version": "0.0.3",
 	"dependencies": {
-		"react-frameui/jiti": "^2.6.5",
-		"react-frameui/nami-coding-agent": "^0.30.2",
+		"@mariozechner/jiti": "^2.6.5",
+		"nami-coding-agent": "^0.30.2",
 		"get-east-asian-width": "^1.4.0"
 	},
 	"overrides": {

@@ -1,4 +1,4 @@
-import { Box, Markdown, type MarkdownTheme, Text } from "react-frameui/nami-tui";
+import { Box, Markdown, type MarkdownTheme, Text } from "nami-tui";
 import type { ParsedSkillBlock } from "../../../core/agent-session.js";
 import { getMarkdownTheme, theme } from "../theme/theme.js";
 import { keyText } from "./keybinding-hints.js";

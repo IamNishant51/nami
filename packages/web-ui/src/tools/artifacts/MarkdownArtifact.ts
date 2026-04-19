@@ -3,10 +3,10 @@ import { html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { i18n } from "../../utils/i18n.js";
-import "react-frameui/mini-lit/dist/MarkdownBlock.js";
-import { CopyButton } from "react-frameui/mini-lit/dist/CopyButton.js";
-import { DownloadButton } from "react-frameui/mini-lit/dist/DownloadButton.js";
-import { PreviewCodeToggle } from "react-frameui/mini-lit/dist/PreviewCodeToggle.js";
+import "mini-lit/dist/MarkdownBlock.js";
+import { CopyButton } from "mini-lit/dist/CopyButton.js";
+import { DownloadButton } from "mini-lit/dist/DownloadButton.js";
+import { PreviewCodeToggle } from "mini-lit/dist/PreviewCodeToggle.js";
 import { ArtifactElement } from "./ArtifactElement.js";
 
 @customElement("markdown-artifact")

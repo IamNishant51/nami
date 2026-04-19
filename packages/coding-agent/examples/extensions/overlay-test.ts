@@ -8,8 +8,8 @@
  * - Edge case tests (wide chars, styled text, emoji)
  */
 
-import type { ExtensionAPI, ExtensionCommandContext, Theme } from "react-frameui/nami-coding-agent";
-import { CURSOR_MARKER, type Focusable, matchesKey, visibleWidth } from "react-frameui/nami-tui";
+import type { ExtensionAPI, ExtensionCommandContext, Theme } from "nami-coding-agent";
+import { CURSOR_MARKER, type Focusable, matchesKey, visibleWidth } from "nami-tui";
 
 export default function (pi: ExtensionAPI) {
 	pi.registerCommand("overlay-test", {

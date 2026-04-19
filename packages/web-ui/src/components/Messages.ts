@@ -1,3 +1,5 @@
+import { html, LitElement, type TemplateResult } from "lit";
+import { customElement, property } from "lit/decorators.js";
 import type {
 	AssistantMessage as AssistantMessageType,
 	ImageContent,
@@ -5,15 +7,13 @@ import type {
 	ToolCall,
 	ToolResultMessage as ToolResultMessageType,
 	UserMessage as UserMessageType,
-} from "react-frameui/nami-ai";
-import { html, LitElement, type TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators.js";
+} from "nami-ai";
 import { renderTool } from "../tools/index.js";
 import type { Attachment } from "../utils/attachment-utils.js";
 import { formatUsage } from "../utils/format.js";
 import { i18n } from "../utils/i18n.js";
 import "./ThinkingBlock.js";
-import type { AgentTool } from "react-frameui/nami-agent-core";
+import type { AgentTool } from "nami-agent-core";
 
 export type UserMessageWithAttachments = {
 	role: "user-with-attachments";
@@ -32,7 +32,7 @@ export interface ArtifactMessage {
 	timestamp: string;
 }
 
-declare module "react-frameui/nami-agent-core" {
+declare module "nami-agent-core" {
 	interface CustomAgentMessages {
 		"user-with-attachments": UserMessageWithAttachments;
 		artifact: ArtifactMessage;
@@ -296,8 +296,8 @@ export class AbortedMessage extends LitElement {
 // Default Message Transformer
 // ============================================================================
 
-import type { AgentMessage } from "react-frameui/nami-agent-core";
-import type { Message } from "react-frameui/nami-ai";
+import type { AgentMessage } from "nami-agent-core";
+import type { Message } from "nami-ai";
 
 /**
  * Convert attachments to content blocks for LLM.

@@ -1,4 +1,4 @@
-import type { Model } from "react-frameui/nami-ai";
+import type { Model } from "nami-ai";
 import { Store } from "../store.js";
 import type { StoreConfig } from "../types.js";
 

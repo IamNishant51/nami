@@ -10,7 +10,7 @@ import {
 	DefaultResourceLoader,
 	type PromptTemplate,
 	SessionManager,
-} from "react-frameui/nami-coding-agent";
+} from "nami-coding-agent";
 
 // Define custom templates
 const deployTemplate: PromptTemplate = {

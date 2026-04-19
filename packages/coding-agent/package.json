@@ -1,5 +1,5 @@
 {
-	"name": "react-frameui/nami-coding-agent",
+	"name": "nami-coding-agent",
 	"version": "0.65.2",
 	"description": "Coding agent CLI with read, bash, edit, write tools and session management",
 	"type": "module",
@@ -39,10 +39,10 @@
 		"prepublishOnly": "npm run clean && npm run build"
 	},
 	"dependencies": {
-		"react-frameui/jiti": "^2.6.2",
-		"react-frameui/nami-agent-core": "^0.65.2",
-		"react-frameui/nami-ai": "^0.65.2",
-		"react-frameui/nami-tui": "^0.65.2",
+		"jiti": "^2.6.1",
+		"nami-agent-core": "^0.65.2",
+		"nami-ai": "^0.65.2",
+		"nami-tui": "^0.65.2",
 		"@silvia-odwyer/photon-node": "^0.3.4",
 		"ajv": "^8.17.1",
 		"chalk": "^5.5.0",
@@ -67,7 +67,7 @@
 		}
 	},
 	"optionalDependencies": {
-		"react-frameui/clipboard": "^0.3.2"
+		"clipboard": "^0.3.2"
 	},
 	"devDependencies": {
 		"@types/diff": "^7.0.2",

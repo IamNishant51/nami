@@ -5,8 +5,8 @@
  * Height is calculated from width to maintain DOOM's aspect ratio.
  */
 
-import type { Component } from "react-frameui/nami-tui";
-import { isKeyRelease, type TUI } from "react-frameui/nami-tui";
+import type { Component } from "nami-tui";
+import { isKeyRelease, type TUI } from "nami-tui";
 import type { DoomEngine } from "./doom-engine.js";
 import { DoomKeys, mapKeyToDoom } from "./doom-keys.js";
 

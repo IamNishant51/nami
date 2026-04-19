@@ -1,3 +1,4 @@
+import { existsSync, readFileSync } from "fs";
 import {
 	type Keybinding,
 	type KeybindingDefinitions,
@@ -5,8 +6,7 @@ import {
 	type KeyId,
 	TUI_KEYBINDINGS,
 	KeybindingsManager as TuiKeybindingsManager,
-} from "react-frameui/nami-tui";
-import { existsSync, readFileSync } from "fs";
+} from "nami-tui";
 import { join } from "path";
 import { getAgentDir } from "../config.js";
 
@@ -43,7 +43,7 @@ export interface AppKeybindings {
 
 export type AppKeybinding = keyof AppKeybindings;
 
-declare module "react-frameui/nami-tui" {
+declare module "nami-tui" {
 	interface Keybindings extends AppKeybindings {}
 }
 

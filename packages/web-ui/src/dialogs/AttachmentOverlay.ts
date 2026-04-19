@@ -1,10 +1,10 @@
-import "react-frameui/mini-lit/dist/ModeToggle.js";
-import { icon } from "react-frameui/mini-lit";
-import { Button } from "react-frameui/mini-lit/dist/Button.js";
+import "mini-lit/dist/ModeToggle.js";
 import { renderAsync } from "docx-preview";
 import { html, LitElement } from "lit";
 import { state } from "lit/decorators.js";
 import { Download, X } from "lucide";
+import { icon } from "mini-lit";
+import { Button } from "mini-lit/dist/Button.js";
 import * as pdfjsLib from "pdfjs-dist";
 import * as XLSX from "xlsx";
 import type { Attachment } from "../utils/attachment-utils.js";

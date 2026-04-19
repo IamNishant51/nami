@@ -2,7 +2,7 @@
  * Component for displaying bash command execution with streaming output.
  */
 
-import { Container, Loader, Spacer, Text, type TUI } from "react-frameui/nami-tui";
+import { Container, Loader, Spacer, Text, type TUI } from "nami-tui";
 import stripAnsi from "strip-ansi";
 import {
 	DEFAULT_MAX_BYTES,

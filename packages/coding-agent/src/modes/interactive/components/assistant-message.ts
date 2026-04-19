@@ -1,5 +1,5 @@
-import type { AssistantMessage } from "react-frameui/nami-ai";
-import { Container, Markdown, type MarkdownTheme, Spacer, Text } from "react-frameui/nami-tui";
+import type { AssistantMessage } from "nami-ai";
+import { Container, Markdown, type MarkdownTheme, Spacer, Text } from "nami-tui";
 import { getMarkdownTheme, theme } from "../theme/theme.js";
 
 /**

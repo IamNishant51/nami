@@ -7,7 +7,7 @@
  * - /timed-signal - Shows confirm using AbortSignal (manual approach)
  */
 
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
+import type { ExtensionAPI } from "nami-coding-agent";
 
 export default function (pi: ExtensionAPI) {
 	// Simple approach: use timeout option (recommended)

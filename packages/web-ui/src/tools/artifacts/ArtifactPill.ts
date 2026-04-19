@@ -1,6 +1,6 @@
-import { icon } from "react-frameui/mini-lit";
 import { html, type TemplateResult } from "lit";
 import { FileCode2 } from "lucide";
+import { icon } from "mini-lit";
 import type { ArtifactsPanel } from "./artifacts.js";
 
 export function ArtifactPill(filename: string, artifactsPanel?: ArtifactsPanel): TemplateResult {

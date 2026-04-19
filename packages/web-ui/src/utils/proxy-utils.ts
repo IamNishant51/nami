@@ -1,5 +1,5 @@
-import type { Api, Context, Model, SimpleStreamOptions } from "react-frameui/nami-ai";
-import { streamSimple } from "react-frameui/nami-ai";
+import type { Api, Context, Model, SimpleStreamOptions } from "nami-ai";
+import { streamSimple } from "nami-ai";
 
 /**
  * Centralized proxy decision logic.

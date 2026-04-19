@@ -1,13 +1,13 @@
-import { icon } from "react-frameui/mini-lit";
-import "react-frameui/mini-lit/dist/MarkdownBlock.js";
-import { Button } from "react-frameui/mini-lit/dist/Button.js";
-import type { Agent, AgentMessage, AgentTool } from "react-frameui/nami-agent-core";
-import { StringEnum, type ToolCall } from "react-frameui/nami-ai";
+import { icon } from "mini-lit";
+import "mini-lit/dist/MarkdownBlock.js";
 import { type Static, Type } from "@sinclair/typebox";
 import { html, LitElement, type TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { createRef, type Ref, ref } from "lit/directives/ref.js";
 import { X } from "lucide";
+import { Button } from "mini-lit/dist/Button.js";
+import type { Agent, AgentMessage, AgentTool } from "nami-agent-core";
+import { StringEnum, type ToolCall } from "nami-ai";
 import type { ArtifactMessage } from "../../components/Messages.js";
 import { ArtifactsRuntimeProvider } from "../../components/sandbox/ArtifactsRuntimeProvider.js";
 import { AttachmentsRuntimeProvider } from "../../components/sandbox/AttachmentsRuntimeProvider.js";

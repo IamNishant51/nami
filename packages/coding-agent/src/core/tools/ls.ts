@@ -1,7 +1,7 @@
-import type { AgentTool } from "react-frameui/nami-agent-core";
-import { Text } from "react-frameui/nami-tui";
 import { type Static, Type } from "@sinclair/typebox";
 import { existsSync, readdirSync, statSync } from "fs";
+import type { AgentTool } from "nami-agent-core";
+import { Text } from "nami-tui";
 import nodePath from "path";
 import { keyHint } from "../../modes/interactive/components/keybinding-hints.js";
 import type { ToolDefinition, ToolRenderResultOptions } from "../extensions/types.js";

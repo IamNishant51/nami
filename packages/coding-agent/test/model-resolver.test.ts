@@ -1,4 +1,4 @@
-import type { Model } from "react-frameui/nami-ai";
+import type { Model } from "nami-ai";
 import { describe, expect, test } from "vitest";
 import {
 	defaultModelPerProvider,

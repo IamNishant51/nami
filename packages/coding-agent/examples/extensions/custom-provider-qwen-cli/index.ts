@@ -9,8 +9,8 @@
  *   # Then /login qwen-cli, or set QWEN_CLI_API_KEY=...
  */
 
-import type { OAuthCredentials, OAuthLoginCallbacks } from "react-frameui/nami-ai";
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
+import type { OAuthCredentials, OAuthLoginCallbacks } from "nami-ai";
+import type { ExtensionAPI } from "nami-coding-agent";
 
 // =============================================================================
 // Constants

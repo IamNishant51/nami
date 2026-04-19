@@ -1,7 +1,7 @@
-import { complete, getModel } from "react-frameui/nami-ai";
-import type { ExtensionAPI, ExtensionCommandContext } from "react-frameui/nami-coding-agent";
-import { DynamicBorder, getMarkdownTheme } from "react-frameui/nami-coding-agent";
-import { Container, Markdown, matchesKey, Text } from "react-frameui/nami-tui";
+import { complete, getModel } from "nami-ai";
+import type { ExtensionAPI, ExtensionCommandContext } from "nami-coding-agent";
+import { DynamicBorder, getMarkdownTheme } from "nami-coding-agent";
+import { Container, Markdown, matchesKey, Text } from "nami-tui";
 
 type ContentBlock = {
 	type?: string;

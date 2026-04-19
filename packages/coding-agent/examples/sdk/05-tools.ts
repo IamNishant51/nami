@@ -22,7 +22,7 @@ import {
 	readOnlyTools,
 	readTool,
 	SessionManager,
-} from "react-frameui/nami-coding-agent";
+} from "nami-coding-agent";
 
 // Read-only mode (no edit/write) - uses process.cwd()
 await createAgentSession({

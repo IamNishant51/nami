@@ -1,9 +1,9 @@
-import type { AgentTool } from "react-frameui/nami-agent-core";
-import type { ToolResultMessage } from "react-frameui/nami-ai";
 import { type Static, Type } from "@sinclair/typebox";
 import { html } from "lit";
 import { createRef, ref } from "lit/directives/ref.js";
 import { FileText } from "lucide";
+import type { AgentTool } from "nami-agent-core";
+import type { ToolResultMessage } from "nami-ai";
 import { EXTRACT_DOCUMENT_DESCRIPTION } from "../prompts/prompts.js";
 import { loadAttachment } from "../utils/attachment-utils.js";
 import { isCorsError } from "../utils/proxy-utils.js";

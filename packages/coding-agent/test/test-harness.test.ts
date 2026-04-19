@@ -3,9 +3,9 @@
  * Validates that the faux provider and session factory work correctly.
  */
 
-import type { AgentTool } from "react-frameui/nami-agent-core";
-import type { AssistantMessage } from "react-frameui/nami-ai";
 import { Type } from "@sinclair/typebox";
+import type { AgentTool } from "nami-agent-core";
+import type { AssistantMessage } from "nami-ai";
 import { afterEach, describe, expect, it } from "vitest";
 import { createHarness, createHarnessWithExtensions, type Harness } from "./test-harness.js";
 

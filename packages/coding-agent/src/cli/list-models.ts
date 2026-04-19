@@ -2,8 +2,8 @@
  * List available models with optional fuzzy search
  */
 
-import type { Api, Model } from "react-frameui/nami-ai";
-import { fuzzyFilter } from "react-frameui/nami-tui";
+import type { Api, Model } from "nami-ai";
+import { fuzzyFilter } from "nami-tui";
 import type { ModelRegistry } from "../core/model-registry.js";
 
 /**

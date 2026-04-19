@@ -7,8 +7,8 @@
  * Usage: /status [message] - sends a status message with custom rendering
  */
 
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
-import { Box, Text } from "react-frameui/nami-tui";
+import type { ExtensionAPI } from "nami-coding-agent";
+import { Box, Text } from "nami-tui";
 
 export default function (pi: ExtensionAPI) {
 	// Register custom renderer for "status-update" messages

@@ -1,5 +1,5 @@
-import type { AgentMessage, ThinkingLevel } from "react-frameui/nami-agent-core";
-import type { Model } from "react-frameui/nami-ai";
+import type { AgentMessage, ThinkingLevel } from "nami-agent-core";
+import type { Model } from "nami-ai";
 
 /**
  * Transaction interface for atomic operations across stores.

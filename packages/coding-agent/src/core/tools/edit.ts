@@ -1,8 +1,8 @@
-import type { AgentTool } from "react-frameui/nami-agent-core";
-import { Container, Text } from "react-frameui/nami-tui";
 import { type Static, Type } from "@sinclair/typebox";
 import { constants } from "fs";
 import { access as fsAccess, readFile as fsReadFile, writeFile as fsWriteFile } from "fs/promises";
+import type { AgentTool } from "nami-agent-core";
+import { Container, Text } from "nami-tui";
 import { renderDiff } from "../../modes/interactive/components/diff.js";
 import type { ToolDefinition } from "../extensions/types.js";
 import {

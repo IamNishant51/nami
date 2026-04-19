@@ -1,5 +1,5 @@
-import { i18n } from "react-frameui/mini-lit";
-import type { Usage } from "react-frameui/nami-ai";
+import { i18n } from "mini-lit";
+import type { Usage } from "nami-ai";
 
 export function formatCost(cost: number): string {
 	return `$${cost.toFixed(4)}`;

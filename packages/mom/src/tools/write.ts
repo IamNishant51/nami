@@ -1,5 +1,5 @@
-import type { AgentTool } from "react-frameui/nami-agent-core";
 import { Type } from "@sinclair/typebox";
+import type { AgentTool } from "nami-agent-core";
 import type { Executor } from "../sandbox.js";
 
 const writeSchema = Type.Object({

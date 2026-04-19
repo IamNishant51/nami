@@ -1,4 +1,4 @@
-import type { AgentState } from "react-frameui/nami-agent-core";
+import type { AgentState } from "nami-agent-core";
 import { Store } from "../store.js";
 import type { SessionData, SessionMetadata, StoreConfig } from "../types.js";
 

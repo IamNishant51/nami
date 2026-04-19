@@ -1,7 +1,7 @@
-import { icon } from "react-frameui/mini-lit";
 import { html, LitElement, type TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { ChevronDown, ChevronRight } from "lucide";
+import { icon } from "mini-lit";
 
 /**
  * Reusable expandable section component for tool renderers.

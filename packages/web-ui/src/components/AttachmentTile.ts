@@ -1,8 +1,8 @@
-import { icon } from "react-frameui/mini-lit/dist/icons.js";
 import { LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { html } from "lit/html.js";
 import { FileSpreadsheet, FileText, X } from "lucide";
+import { icon } from "mini-lit/dist/icons.js";
 import { AttachmentOverlay } from "../dialogs/AttachmentOverlay.js";
 import type { Attachment } from "../utils/attachment-utils.js";
 import { i18n } from "../utils/i18n.js";

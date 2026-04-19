@@ -1,6 +1,6 @@
 import { join } from "node:path";
-import type { ThinkingLevel } from "react-frameui/nami-agent-core";
-import type { Model } from "react-frameui/nami-ai";
+import type { ThinkingLevel } from "nami-agent-core";
+import type { Model } from "nami-ai";
 import { getAgentDir } from "../config.js";
 import { AuthStorage } from "./auth-storage.js";
 import type { SessionStartEvent, ToolDefinition } from "./extensions/index.js";

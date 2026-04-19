@@ -1,4 +1,4 @@
-import { Container, type SelectItem, SelectList, type SelectListLayoutOptions } from "react-frameui/nami-tui";
+import { Container, type SelectItem, SelectList, type SelectListLayoutOptions } from "nami-tui";
 import { getAvailableThemes, getSelectListTheme } from "../theme/theme.js";
 import { DynamicBorder } from "./dynamic-border.js";
 

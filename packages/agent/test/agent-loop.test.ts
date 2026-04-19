@@ -1,3 +1,4 @@
+import { Type } from "@sinclair/typebox";
 import {
 	type AssistantMessage,
 	type AssistantMessageEvent,
@@ -5,8 +6,7 @@ import {
 	type Message,
 	type Model,
 	type UserMessage,
-} from "react-frameui/nami-ai";
-import { Type } from "@sinclair/typebox";
+} from "nami-ai";
 import { describe, expect, it } from "vitest";
 import { agentLoop, agentLoopContinue } from "../src/agent-loop.js";
 import type { AgentContext, AgentEvent, AgentLoopConfig, AgentMessage, AgentTool } from "../src/types.js";

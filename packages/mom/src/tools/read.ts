@@ -1,6 +1,6 @@
-import type { AgentTool } from "react-frameui/nami-agent-core";
-import type { ImageContent, TextContent } from "react-frameui/nami-ai";
 import { Type } from "@sinclair/typebox";
+import type { AgentTool } from "nami-agent-core";
+import type { ImageContent, TextContent } from "nami-ai";
 import { extname } from "path";
 import type { Executor } from "../sandbox.js";
 import { DEFAULT_MAX_BYTES, DEFAULT_MAX_LINES, formatSize, type TruncationResult, truncateHead } from "./truncate.js";

@@ -1,8 +1,8 @@
 import { customElement, state } from "lit/decorators.js";
 import "../components/ProviderKeyInput.js";
-import { DialogContent, DialogHeader } from "react-frameui/mini-lit/dist/Dialog.js";
-import { DialogBase } from "react-frameui/mini-lit/dist/DialogBase.js";
 import { html } from "lit";
+import { DialogContent, DialogHeader } from "mini-lit/dist/Dialog.js";
+import { DialogBase } from "mini-lit/dist/DialogBase.js";
 import { getAppStorage } from "../storage/app-storage.js";
 import { i18n } from "../utils/i18n.js";
 

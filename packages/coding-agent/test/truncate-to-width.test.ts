@@ -1,4 +1,4 @@
-import { truncateToWidth, visibleWidth } from "react-frameui/nami-tui";
+import { truncateToWidth, visibleWidth } from "nami-tui";
 import { describe, expect, it } from "vitest";
 
 /**

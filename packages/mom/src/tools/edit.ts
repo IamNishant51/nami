@@ -1,6 +1,6 @@
-import type { AgentTool } from "react-frameui/nami-agent-core";
 import { Type } from "@sinclair/typebox";
 import * as Diff from "diff";
+import type { AgentTool } from "nami-agent-core";
 import type { Executor } from "../sandbox.js";
 
 /**

@@ -10,7 +10,7 @@ import {
 	streamSimple,
 	type ToolResultMessage,
 	validateToolArguments,
-} from "react-frameui/nami-ai";
+} from "nami-ai";
 import type {
 	AgentContext,
 	AgentEvent,

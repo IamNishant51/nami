@@ -1,4 +1,4 @@
-import { Box, type Component, Container, getCapabilities, Image, Spacer, Text, type TUI } from "react-frameui/nami-tui";
+import { Box, type Component, Container, getCapabilities, Image, Spacer, Text, type TUI } from "nami-tui";
 import type { ToolDefinition, ToolRenderContext } from "../../../core/extensions/types.js";
 import { allToolDefinitions } from "../../../core/tools/index.js";
 import { getTextOutput as getRenderedTextOutput } from "../../../core/tools/render-utils.js";

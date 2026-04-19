@@ -9,8 +9,8 @@
  * - ctrl+c, ctrl+d, etc. work in both modes
  */
 
-import { CustomEditor, type ExtensionAPI } from "react-frameui/nami-coding-agent";
-import { matchesKey, truncateToWidth, visibleWidth } from "react-frameui/nami-tui";
+import { CustomEditor, type ExtensionAPI } from "nami-coding-agent";
+import { matchesKey, truncateToWidth, visibleWidth } from "nami-tui";
 
 // Normal mode key mappings: key -> escape sequence (or null for mode switch)
 const NORMAL_KEYS: Record<string, string | null> = {

@@ -1,5 +1,5 @@
-import { Agent, type ThinkingLevel } from "react-frameui/nami-agent-core";
-import { getModel } from "react-frameui/nami-ai";
+import { Agent, type ThinkingLevel } from "nami-agent-core";
+import { getModel } from "nami-ai";
 import { describe, expect, it } from "vitest";
 import { AgentSession } from "../src/core/agent-session.js";
 import { AuthStorage } from "../src/core/auth-storage.js";

@@ -5,9 +5,9 @@
  * Multiple questions: tab bar navigation between questions
  */
 
-import type { ExtensionAPI } from "react-frameui/nami-coding-agent";
-import { Editor, type EditorTheme, Key, matchesKey, Text, truncateToWidth } from "react-frameui/nami-tui";
 import { Type } from "@sinclair/typebox";
+import type { ExtensionAPI } from "nami-coding-agent";
+import { Editor, type EditorTheme, Key, matchesKey, Text, truncateToWidth } from "nami-tui";
 
 // Types
 interface QuestionOption {

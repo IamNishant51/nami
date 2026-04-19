@@ -1,5 +1,5 @@
-import type { AgentMessage } from "react-frameui/nami-agent-core";
-import type { AssistantMessage, Model } from "react-frameui/nami-ai";
+import type { AgentMessage } from "nami-agent-core";
+import type { AssistantMessage, Model } from "nami-ai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { generateSummary } from "../src/core/compaction/index.js";
 
@@ -7,8 +7,8 @@ const { completeSimpleMock } = vi.hoisted(() => ({
 	completeSimpleMock: vi.fn(),
 }));
 
-vi.mock("react-frameui/nami-ai", async (importOriginal) => {
-	const actual = await importOriginal<typeof import("react-frameui/nami-ai")>();
+vi.mock("nami-ai", async (importOriginal) => {
+	const actual = await importOriginal<typeof import("nami-ai")>();
 	return {
 		...actual,
 		completeSimple: completeSimpleMock,
