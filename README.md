@@ -1,80 +1,74 @@
-<!-- OSS_WEEKEND_START -->
-# 🏖️ OSS Weekend
+# 🧜 Nami - AI Coding Agent
 
-**Issue tracker reopens Monday, April 13, 2026.**
-
-OSS weekend runs Thursday, April 2, 2026 through Monday, April 13, 2026. New issues and PRs from unapproved contributors are auto-closed during this time. Approved contributors can still open issues and PRs if something is genuinely urgent, but please keep that to pressing matters only. For support, join [Discord](https://discord.com/invite/3cU7Bz4UPx).
-
-> _Current focus: at the moment i'm deep in refactoring internals, and need to focus._
-<!-- OSS_WEEKEND_END -->
-
----
-
-<p align="center">
-  <a href="https://shittycodingagent.ai">
-    <img src="https://shittycodingagent.ai/logo.svg" alt="nami logo" width="128">
-  </a>
-</p>
 <p align="center">
   <a href="https://discord.com/invite/3cU7Bz4UPx"><img alt="Discord" src="https://img.shields.io/badge/discord-community-5865F2?style=flat-square&logo=discord&logoColor=white" /></a>
-  <a href="https://github.com/badlogic/pi-mono/actions/workflows/ci.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/badlogic/pi-mono/ci.yml?style=flat-square&branch=main" /></a>
-</p>
-<p align="center">
-  <a href="https://pi.dev">pi.dev</a> domain graciously donated by
-  <br /><br />
-  <a href="https://exe.dev"><img src="packages/coding-agent/docs/images/exy.png" alt="Exy mascot" width="48" /><br />exe.dev</a>
+  <a href="https://www.npmjs.com/package/@react-frameui/nami-coding-agent"><img alt="NPM Version" src="https://img.shields.io/npm/v/@react-frameui/nami-coding-agent?style=flat-square&label=npm" /></a>
 </p>
 
-# Nami Monorepo
+> **Powerful AI coding agent** - An interactive CLI that reads files, edits code, executes commands, and builds complete projects with AI.
 
-> **Looking for the nami coding agent?** See **[packages/coding-agent](packages/coding-agent)** for installation and usage.
+## Features
 
-Tools for building AI agents and managing LLM deployments.
+- **Interactive CLI** - Chat with AI to write, edit, and debug code
+- **Multi-Provider LLM Support** - OpenAI, Anthropic, Google, Azure, AWS Bedrock, and more
+- **Powerful Tools** - Read, write, edit, grep, find, bash - all the tools you need
+- **Session History** - Resume previous conversations anytime
+- **Extensions** - Customize with your own extensions
+- **Terminal UI** - Beautiful terminal interface with syntax highlighting
+- **Web UI** - Also available as web components
 
-## Share your OSS coding agent sessions
+## Quick Install
 
-If you use nami or other coding agents for open source work, please share your sessions.
+```bash
+npm install -g @react-frameui/nami-coding-agent
+```
 
-Public OSS session data helps improve coding agents with real-world tasks, tool use, failures, and fixes instead of toy benchmarks.
+## Usage
 
-For the full explanation, see [this post on X](https://x.com/badlogicgames/status/2037811643774652911).
+```bash
+# Start interactive session
+nami
 
-To publish sessions, use [`badlogic/pi-share-hf`](https://github.com/badlogic/pi-share-hf). Read its README.md for setup instructions. All you need is a Hugging Face account, the Hugging Face CLI, and `pi-share-hf`.
+# Run a single prompt
+nami -p "Hello, write a hello world program"
 
-You can also watch [this video](https://x.com/badlogicgames/status/2041151967695634619), where I show how I publish my `nami-mono` sessions.
+# List available models
+nami models
+```
 
-I regularly publish my own `nami-mono` work sessions here:
+## Configuration
 
-- [badlogicgames/nami-mono on Hugging Face](https://huggingface.co/datasets/badlogicgames/nami-mono)
+Nami stores config in `~/.nami/agent/`:
+
+- `settings.json` - API keys and preferences
+- `sessions/` - Session history
+- `skills/` - Custom skills
 
 ## Packages
 
 | Package | Description |
 |---------|-------------|
-| **[@mariozechner/nami-ai](packages/ai)** | Unified multi-provider LLM API (OpenAI, Anthropic, Google, etc.) |
-| **[@mariozechner/nami-agent-core](packages/agent)** | Agent runtime with tool calling and state management |
-| **[@mariozechner/nami-coding-agent](packages/coding-agent)** | Interactive coding agent CLI |
-| **[@mariozechner/nami-mom](packages/mom)** | Slack bot that delegates messages to the nami coding agent |
-| **[@mariozechner/nami-tui](packages/tui)** | Terminal UI library with differential rendering |
-| **[@mariozechner/nami-web-ui](packages/web-ui)** | Web components for AI chat interfaces |
-| **[@mariozechner/nami-pods](packages/pods)** | CLI for managing vLLM deployments on GPU pods |
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and [AGENTS.md](AGENTS.md) for project-specific rules (for both humans and agents).
+| `@react-frameui/nami-ai` | Unified multi-provider LLM API |
+| `@react-frameui/nami-agent-core` | Agent runtime with tool calling |
+| `@react-frameui/nami-coding-agent` | Interactive coding agent CLI |
+| `@react-frameui/nami-tui` | Terminal UI library |
+| `@react-frameui/nami-web-ui` | Web components for chat interfaces |
 
 ## Development
 
 ```bash
-npm install          # Install all dependencies
-npm run build        # Build all packages
-npm run check        # Lint, format, and type check
-./test.sh            # Run tests (skips LLM-dependent tests without API keys)
-./pi-test.sh         # Run nami from sources (can be run from any directory)
-```
+# Clone and setup
+git clone https://github.com/IamNishant51/nami.git
+cd nami
+npm install
 
-> **Note:** `npm run check` requires `npm run build` to be run first. The web-ui package uses `tsc` which needs compiled `.d.ts` files from dependencies.
+# Build
+npm run build
+
+# Test
+./test.sh
+```
 
 ## License
 
-MIT
+MIT - [Nishant Unavane](https://github.com/IamNishant51)
