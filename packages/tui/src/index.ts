@@ -87,6 +87,16 @@ export {
 	setCellDimensions,
 	type TerminalCapabilities,
 } from "./terminal-image.js";
+// Tool rendering
+export {
+	formatToolsAsManual,
+	formatToolsAsTable,
+	renderToolSchema,
+	renderToolSchemas,
+	type ToolDisplayEntry,
+	type ToolParameterSchema,
+	type ToolSchema,
+} from "./tool-renderer.js";
 export {
 	type Component,
 	Container,

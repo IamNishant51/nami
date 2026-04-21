@@ -211,6 +211,27 @@ export interface AgentLoopConfig extends SimpleStreamOptions {
 	 * The hook receives the agent abort signal and is responsible for honoring it.
 	 */
 	afterToolCall?: (context: AfterToolCallContext, signal?: AbortSignal) => Promise<AfterToolCallResult | undefined>;
+
+	/**
+	 * Called when the assistant message contains text that looks like a tool call but wasn't
+	 * emitted through the tool interface. This is the "Tool-Call Enforcer" mechanism for local
+	 * models that may output JSON in text form.
+	 *
+	 * Return a correction message to send back to the model, or undefined to skip correction.
+	 *
+	 * The detected JSON text is provided for context.
+	 */
+	correctionPrompt?: (detectedJsonText: string) => string | undefined;
+
+	/**
+	 * JSON-Sieve: If enabled, when the model outputs JSON that looks like a tool call in plain text,
+	 * the system will automatically intercept, parse, and execute it, then feed the result back.
+	 *
+	 * This is the "Infrastructure Fix" - instead of correcting the model, we use its output.
+	 *
+	 * When returns true, detected JSON tool calls will be executed and their results added to context.
+	 */
+	interceptJsonToolCalls?: boolean;
 }
 
 /**

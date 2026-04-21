@@ -8,6 +8,7 @@ import {
 	type Context,
 	EventStream,
 	streamSimple,
+	type ToolCall,
 	type ToolResultMessage,
 	validateToolArguments,
 } from "nami-ai";
@@ -201,8 +202,76 @@ async function runLoop(
 			const toolCalls = message.content.filter((c) => c.type === "toolCall");
 			hasMoreToolCalls = toolCalls.length > 0;
 
+			// Identity Enforcer: Check if model incorrectly identified itself
+			if (!hasMoreToolCalls) {
+				const textContent = message.content.find((c) => c.type === "text");
+				if (textContent && textContent.type === "text") {
+					const wrongIdentity = detectWrongIdentity(textContent.text);
+					if (wrongIdentity) {
+						const correctionMessage: AgentMessage = {
+							role: "user",
+							content: [
+								{
+									type: "text",
+									text: `Reminder: Your name is NAMI. Do not introduce yourself as "${wrongIdentity}" or any other model name. Respond as NAMI.`,
+								},
+							],
+							timestamp: Date.now(),
+						};
+						currentContext.messages.push(correctionMessage);
+						newMessages.push(correctionMessage);
+						await emit({ type: "message_start", message: correctionMessage });
+						await emit({ type: "message_end", message: correctionMessage });
+						continue;
+					}
+				}
+			}
+
+			// Tool-Call Enforcer: Check for text that looks like tool call JSON but wasn't emitted as tool call
+			if (!hasMoreToolCalls && config.correctionPrompt) {
+				const textContent = message.content.find((c) => c.type === "text");
+				if (textContent && textContent.type === "text") {
+					const detectedJson = detectToolCallJsonInText(textContent.text);
+					if (detectedJson) {
+						const correctionMessage = config.correctionPrompt(detectedJson);
+						if (correctionMessage) {
+							const correctionAgentMessage: AgentMessage = {
+								role: "user",
+								content: [{ type: "text", text: correctionMessage }],
+								timestamp: Date.now(),
+							};
+							currentContext.messages.push(correctionAgentMessage);
+							newMessages.push(correctionAgentMessage);
+							await emit({ type: "message_start", message: correctionAgentMessage });
+							await emit({ type: "message_end", message: correctionAgentMessage });
+							continue;
+						}
+					}
+				}
+			}
+
+			// JSON-Sieve: Intercept and execute JSON tool calls from text
+			let interceptedToolCalls: ToolCall[] = [];
+			if (!hasMoreToolCalls && config.interceptJsonToolCalls) {
+				const textContent = message.content.find((c) => c.type === "text");
+				if (textContent && textContent.type === "text") {
+					interceptedToolCalls = parseAllInterceptedJsonToolCalls(textContent.text, currentContext.tools);
+				}
+			}
+
 			const toolResults: ToolResultMessage[] = [];
-			if (hasMoreToolCalls) {
+
+			// Execute ALL intercepted JSON tool calls
+			if (interceptedToolCalls.length > 0) {
+				for (const toolCall of interceptedToolCalls) {
+					const result = await executeSingleToolCall(currentContext, toolCall, config, signal, emit);
+					if (result) {
+						toolResults.push(result);
+						currentContext.messages.push(result);
+						newMessages.push(result);
+					}
+				}
+			} else if (hasMoreToolCalls) {
 				toolResults.push(...(await executeToolCalls(currentContext, message, config, signal, emit)));
 
 				for (const result of toolResults) {
@@ -628,4 +697,337 @@ async function emitToolCallOutcome(
 	await emit({ type: "message_start", message: toolResultMessage });
 	await emit({ type: "message_end", message: toolResultMessage });
 	return toolResultMessage;
+}
+
+/**
+ * Detect JSON that looks like a tool call embedded in text.
+ * This is part of the Tool-Call Enforcer mechanism.
+ *
+ * @param text The text that may contain embedded JSON tool calls
+ * @returns The detected JSON string or undefined if not found
+ */
+function detectToolCallJsonInText(text: string): string | undefined {
+	if (!text) {
+		return undefined;
+	}
+
+	// Pattern 1: Look for { "name": ... } or { "function": { "name": ... }
+	const toolCallPattern = /\{\s*"(?:"function"|"name"|"tool"|"action")"\s*:/i;
+	if (toolCallPattern.test(text)) {
+		// Extract the JSON object
+		const match = text.match(/\{[\s\S]*?"(?:function|name|tool|action)"[\s\S]*?\}/i);
+		if (match) {
+			const jsonText = match[0];
+			try {
+				const parsed = JSON.parse(jsonText);
+				// Verify it looks like a tool call
+				const hasName = parsed.name || parsed.function?.name || parsed.tool || parsed.action;
+				const hasArgs = parsed.arguments || parsed.input || parsed.function?.arguments || parsed.function?.input;
+				if (hasName && hasArgs) {
+					return jsonText;
+				}
+			} catch {
+				// Not valid JSON, ignore
+			}
+		}
+	}
+
+	// Pattern 2: Look for markdown-wrapped JSON with tool call structure
+	const markdownMatch = text.match(/```(?:json)?\s*(\{[\s\S]*?"name"[\s\S]*?\})\s*```/);
+	if (markdownMatch) {
+		try {
+			const parsed = JSON.parse(markdownMatch[1]);
+			if (parsed.name && parsed.arguments) {
+				return markdownMatch[1];
+			}
+		} catch {
+			// Ignore
+		}
+	}
+
+	return undefined;
+}
+
+/**
+ * Detect if the model incorrectly identified itself with a wrong name.
+ * Returns the detected wrong identity or undefined if correct.
+ */
+function detectWrongIdentity(text: string): string | undefined {
+	if (!text) {
+		return undefined;
+	}
+
+	const lowerText = text.toLowerCase();
+
+	// Patterns that indicate wrong identity
+	const wrongIdentityPatterns = [
+		/^i am (?:qwen|claude|gpt|gemini|chatgpt|llama|deepseek|mistral)/i,
+		/^my name is (?:qwen|claude|gpt|gemini|chatgpt|llama|deepseek|mistral)/i,
+		/^i'?m (?:qwen|claude|gpt|gemini|chatgpt|llama|deepseek|mistral)/i,
+		/^i am an? (?:ai|language model|assistant|ai assistant)/i,
+		/^i'?m an? (?:ai|language model|assistant|ai assistant)/i,
+		/^(?:i am|i'?m) (?:created by|built by|developed by|from|made by)/i,
+		/^i am a (?:large )?language model/i,
+		/^i was (?:created|built|trained|developed)/i,
+	];
+
+	// Check first 500 chars to catch introductions
+	const introText = lowerText.slice(0, 500);
+
+	for (const pattern of wrongIdentityPatterns) {
+		const match = introText.match(pattern);
+		if (match) {
+			// Extract the name from the match
+			const fullMatch = match[0];
+			const nameMatch = fullMatch.match(
+				/(qwen|claude|gpt|gemini|chatgpt|llama|deepseek|mistral|ai|language model|assistant)/i,
+			);
+			if (nameMatch) {
+				return nameMatch[1];
+			}
+			return fullMatch;
+		}
+	}
+
+	// Also check for common phrases like "I am Qwen" or "I'm Claude"
+	const explicitNames = ["qwen", "claude", "gpt-4", "gpt", "gemini", "chatgpt", "llama", "deepseek"];
+	for (const name of explicitNames) {
+		const patterns = [
+			new RegExp(`\\bi am\\b.*\\b${name}\\b`, "i"),
+			new RegExp(`\\bi'?m\\b.*\\b${name}\\b`, "i"),
+			new RegExp(`\\bmy name is\\b.*\\b${name}\\b`, "i"),
+			new RegExp(`\\bi was created by\\b.*\\b${name}\\b`, "i"),
+		];
+		for (const pattern of patterns) {
+			if (pattern.test(introText)) {
+				return name;
+			}
+		}
+	}
+
+	return undefined;
+}
+
+/**
+ * Parse ALL detected JSON tool calls from text into ToolCall[].
+ */
+function parseAllInterceptedJsonToolCalls(jsonText: string, availableTools: AgentTool<any>[] | undefined): ToolCall[] {
+	if (!jsonText || !availableTools || availableTools.length === 0) {
+		return [];
+	}
+
+	const found: ToolCall[] = [];
+	const toolNames = new Set(availableTools.map((t) => t.name));
+
+	// Strategy 1: Find all {"name": "...", "arguments": {...}} patterns
+	const pattern = /"name"\s*:\s*"(\w+)"\s*,\s*"arguments"\s*:\s*\{([\s\S]*?)\}/g;
+
+	for (const match of jsonText.matchAll(pattern)) {
+		const toolName = match[1];
+		if (toolNames.has(toolName)) {
+			found.push({
+				type: "toolCall",
+				id: `intercepted-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+				name: toolName,
+				arguments: {},
+			});
+		}
+	}
+
+	// Strategy 2: Also try JSON array of tool calls
+	if (found.length === 0) {
+		const arrayPattern = /\[\s*\{[\s\S]*?"name"\s*:\s*"(\w+)"[\s\S]*?\}/g;
+		for (const match of jsonText.matchAll(arrayPattern)) {
+			const toolName = match[1];
+			if (toolNames.has(toolName) && !found.some((f) => f.name === toolName)) {
+				found.push({
+					type: "toolCall",
+					id: `intercepted-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+					name: toolName,
+					arguments: {},
+				});
+			}
+		}
+	}
+
+	return found;
+}
+
+/**
+ * Parse a detected JSON string into a ToolCall.
+ * This is the JSON-Sieve - converting printed JSON to actual tool calls.
+ */
+function _parseInterceptedJsonToolCall(
+	jsonText: string,
+	availableTools: AgentTool<any>[] | undefined,
+): ToolCall | undefined {
+	if (!jsonText || !availableTools || availableTools.length === 0) {
+		return undefined;
+	}
+
+	// Strategy 1: Try to find JSON objects anywhere in the text with more lenient patterns
+	const lenientPatterns = [
+		/"name"\s*:\s*"([^"]+)"\s*,\s*"arguments"\s*:\s*\{/g,
+		/"function"\s*:\s*\{\s*"name"\s*:\s*"([^"]+)"[^}]*"arguments"\s*:\s*\{/g,
+	];
+
+	for (const pattern of lenientPatterns) {
+		for (const match of jsonText.matchAll(pattern)) {
+			try {
+				// Extract just around the match to find valid JSON
+				const start = match.index!;
+				const jsonCandidate = extractJsonObject(jsonText.slice(start));
+				if (jsonCandidate) {
+					const parsed = JSON.parse(jsonCandidate);
+					const toolName = parsed.name || parsed.function?.name;
+					const toolArgs = parsed.arguments || parsed.function?.arguments || {};
+
+					const tool = availableTools.find((t) => t.name === toolName);
+					if (tool) {
+						return {
+							type: "toolCall",
+							id: `intercepted-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+							name: toolName,
+							arguments: toolArgs,
+						};
+					}
+				}
+			} catch {
+				// Not valid JSON, try next
+			}
+		}
+	}
+
+	// Strategy 2: Try to parse any {...} pattern that looks like tool call
+	return parseAnyToolCallJson(jsonText, availableTools);
+}
+
+/**
+ * Extract a JSON object starting at a given position.
+ */
+function extractJsonObject(text: string, maxBytes: number = 500): string | undefined {
+	let braceCount = 0;
+	let start = -1;
+	let end = -1;
+
+	for (let i = 0; i < text.length && i < maxBytes; i++) {
+		const c = text[i];
+		if (c === "{") {
+			if (start === -1) start = i;
+			braceCount++;
+		} else if (c === "}") {
+			braceCount--;
+			if (braceCount === 0 && start !== -1) {
+				end = i + 1;
+				break;
+			}
+			if (braceCount < 0) break;
+		}
+	}
+
+	if (start !== -1 && end !== -1) {
+		return text.slice(start, end);
+	}
+	return undefined;
+}
+
+/**
+ * Fallback: Try to find any tool call JSON in the text.
+ */
+function parseAnyToolCallJson(jsonText: string, availableTools: AgentTool<any>[] | undefined): ToolCall | undefined {
+	// Look for any {...} pattern with "name" and "arguments" keys
+	const anyJsonPattern = /\{"name"\s*:\s*"[^"]+"\s*,\s*"arguments"\s*:\s*\{[\s\S]*?\}/g;
+
+	for (const match of jsonText.matchAll(anyJsonPattern)) {
+		try {
+			const parsed = JSON.parse(match[0]);
+			if (parsed.name && parsed.arguments) {
+				const tool = availableTools?.find((t) => t.name === parsed.name);
+				if (tool) {
+					return {
+						type: "toolCall",
+						id: `intercepted-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+						name: parsed.name,
+						arguments: parsed.arguments,
+					};
+				}
+			}
+		} catch {
+			// Not valid JSON
+		}
+	}
+
+	// Last resort: look for bare tool names
+	return detectBareToolCall(jsonText, availableTools);
+}
+
+/**
+ * Detect bare tool call like: {"name": "bash", "arguments": {...}}
+ */
+function detectBareToolCall(text: string, availableTools: AgentTool<any>[] | undefined): ToolCall | undefined {
+	// Find tool names in quotes followed by arguments
+	const pattern = /"name"\s*:\s*"(\w+)"[\s\S]*?"arguments"\s*:\s*\{([\s\S]*?)\}/g;
+
+	for (const match of text.matchAll(pattern)) {
+		const toolName = match[1];
+		const tool = availableTools?.find((t) => t.name === toolName);
+		if (tool) {
+			return {
+				type: "toolCall",
+				id: `intercepted-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+				name: toolName,
+				arguments: {},
+			};
+		}
+	}
+
+	return undefined;
+}
+
+/**
+ * Execute a single intercepted tool call and return its result.
+ */
+async function executeSingleToolCall(
+	currentContext: AgentContext,
+	toolCall: ToolCall,
+	_config: AgentLoopConfig,
+	signal: AbortSignal | undefined,
+	emit: AgentEventSink,
+): Promise<ToolResultMessage | undefined> {
+	const tool = currentContext.tools?.find((t) => t.name === toolCall.name);
+	if (!tool) {
+		return undefined;
+	}
+
+	try {
+		const validatedArgs = validateToolArguments(tool, toolCall);
+		const prepared: PreparedToolCall = {
+			kind: "prepared",
+			toolCall,
+			tool,
+			args: validatedArgs,
+		};
+
+		const executed = await executePreparedToolCall(prepared, signal, emit);
+
+		return {
+			role: "toolResult",
+			toolCallId: toolCall.id,
+			toolName: toolCall.name,
+			content: executed.result.content,
+			details: executed.result.details as any,
+			isError: executed.isError,
+			timestamp: Date.now(),
+		};
+	} catch (error) {
+		return {
+			role: "toolResult",
+			toolCallId: toolCall.id,
+			toolName: toolCall.name,
+			content: [{ type: "text", text: `Error: ${error}` }],
+			details: {},
+			isError: true,
+			timestamp: Date.now(),
+		};
+	}
 }

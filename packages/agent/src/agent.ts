@@ -107,6 +107,8 @@ export interface AgentOptions {
 	transport?: Transport;
 	maxRetryDelayMs?: number;
 	toolExecution?: ToolExecutionMode;
+	interceptJsonToolCalls?: boolean;
+	correctionPrompt?: (detectedJsonText: string) => string | undefined;
 }
 
 class PendingMessageQueue {
@@ -201,7 +203,14 @@ export class Agent {
 		this.transport = options.transport ?? "sse";
 		this.maxRetryDelayMs = options.maxRetryDelayMs;
 		this.toolExecution = options.toolExecution ?? "parallel";
+		this.interceptJsonToolCalls = options.interceptJsonToolCalls ?? true;
+		this.correctionPrompt = options.correctionPrompt;
 	}
+
+	/** Whether to intercept JSON tool calls from model output text. */
+	public interceptJsonToolCalls: boolean;
+	/** Callback to generate correction prompts when model outputs JSON-like text instead of tool call. */
+	public correctionPrompt?: (detectedJsonText: string) => string | undefined;
 
 	/**
 	 * Subscribe to agent lifecycle events.
@@ -417,6 +426,8 @@ export class Agent {
 			toolExecution: this.toolExecution,
 			beforeToolCall: this.beforeToolCall,
 			afterToolCall: this.afterToolCall,
+			interceptJsonToolCalls: this.interceptJsonToolCalls,
+			correctionPrompt: this.correctionPrompt,
 			convertToLlm: this.convertToLlm,
 			transformContext: this.transformContext,
 			getApiKey: this.getApiKey,
