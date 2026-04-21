@@ -413,6 +413,8 @@ export class Agent {
 		};
 	}
 
+	private _turnCount = 0;
+
 	private createLoopConfig(options: { skipInitialSteeringPoll?: boolean } = {}): AgentLoopConfig {
 		let skipInitialSteeringPoll = options.skipInitialSteeringPoll === true;
 		return {
@@ -429,7 +431,23 @@ export class Agent {
 			interceptJsonToolCalls: this.interceptJsonToolCalls,
 			correctionPrompt: this.correctionPrompt,
 			convertToLlm: this.convertToLlm,
-			transformContext: this.transformContext,
+			transformContext: async (messages, signal) => {
+				this._turnCount++;
+				// Skip first 2 turns of tools to let model learn user intent
+				// Tools get added back on turn 3+
+				if (this._turnCount <= 2) {
+					const msgs = [...messages];
+					const toolMsgIdx = msgs.findIndex(
+						(m: any) =>
+							m.role === "system" && (m.content?.includes("TOOLS:") || m.content?.includes("AVAILABLE TOOLS")),
+					);
+					if (toolMsgIdx > -1) {
+						msgs.splice(toolMsgIdx, 1);
+						return this.transformContext ? this.transformContext(msgs, signal) : msgs;
+					}
+				}
+				return this.transformContext ? this.transformContext(messages, signal) : messages;
+			},
 			getApiKey: this.getApiKey,
 			getSteeringMessages: async () => {
 				if (skipInitialSteeringPoll) {
