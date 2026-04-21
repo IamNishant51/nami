@@ -809,179 +809,33 @@ function detectWrongIdentity(text: string): string | undefined {
 }
 
 /**
- * Parse ALL detected JSON tool calls from text into ToolCall[].
+ * Parse JSON tool calls from model output text (JSON-Sieve).
+ * Returns array of detected tool calls.
  */
 function parseAllInterceptedJsonToolCalls(jsonText: string, availableTools: AgentTool<any>[] | undefined): ToolCall[] {
-	if (!jsonText || !availableTools || availableTools.length === 0) {
+	if (!jsonText || !availableTools?.length) {
 		return [];
 	}
 
-	const found: ToolCall[] = [];
 	const toolNames = new Set(availableTools.map((t) => t.name));
+	const found: ToolCall[] = [];
 
-	// Strategy 1: Find all {"name": "...", "arguments": {...}} patterns
-	const pattern = /"name"\s*:\s*"(\w+)"\s*,\s*"arguments"\s*:\s*\{([\s\S]*?)\}/g;
+	// Fast pattern: find {"name": "toolname", "arguments": {...}}
+	const pattern = /"name"\s*:\s*"(\w+)"\s*,\s*"arguments"\s*:/g;
 
 	for (const match of jsonText.matchAll(pattern)) {
 		const toolName = match[1];
 		if (toolNames.has(toolName)) {
 			found.push({
 				type: "toolCall",
-				id: `intercepted-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+				id: `call_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
 				name: toolName,
 				arguments: {},
 			});
 		}
 	}
 
-	// Strategy 2: Also try JSON array of tool calls
-	if (found.length === 0) {
-		const arrayPattern = /\[\s*\{[\s\S]*?"name"\s*:\s*"(\w+)"[\s\S]*?\}/g;
-		for (const match of jsonText.matchAll(arrayPattern)) {
-			const toolName = match[1];
-			if (toolNames.has(toolName) && !found.some((f) => f.name === toolName)) {
-				found.push({
-					type: "toolCall",
-					id: `intercepted-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-					name: toolName,
-					arguments: {},
-				});
-			}
-		}
-	}
-
 	return found;
-}
-
-/**
- * Parse a detected JSON string into a ToolCall.
- * This is the JSON-Sieve - converting printed JSON to actual tool calls.
- */
-function _parseInterceptedJsonToolCall(
-	jsonText: string,
-	availableTools: AgentTool<any>[] | undefined,
-): ToolCall | undefined {
-	if (!jsonText || !availableTools || availableTools.length === 0) {
-		return undefined;
-	}
-
-	// Strategy 1: Try to find JSON objects anywhere in the text with more lenient patterns
-	const lenientPatterns = [
-		/"name"\s*:\s*"([^"]+)"\s*,\s*"arguments"\s*:\s*\{/g,
-		/"function"\s*:\s*\{\s*"name"\s*:\s*"([^"]+)"[^}]*"arguments"\s*:\s*\{/g,
-	];
-
-	for (const pattern of lenientPatterns) {
-		for (const match of jsonText.matchAll(pattern)) {
-			try {
-				// Extract just around the match to find valid JSON
-				const start = match.index!;
-				const jsonCandidate = extractJsonObject(jsonText.slice(start));
-				if (jsonCandidate) {
-					const parsed = JSON.parse(jsonCandidate);
-					const toolName = parsed.name || parsed.function?.name;
-					const toolArgs = parsed.arguments || parsed.function?.arguments || {};
-
-					const tool = availableTools.find((t) => t.name === toolName);
-					if (tool) {
-						return {
-							type: "toolCall",
-							id: `intercepted-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-							name: toolName,
-							arguments: toolArgs,
-						};
-					}
-				}
-			} catch {
-				// Not valid JSON, try next
-			}
-		}
-	}
-
-	// Strategy 2: Try to parse any {...} pattern that looks like tool call
-	return parseAnyToolCallJson(jsonText, availableTools);
-}
-
-/**
- * Extract a JSON object starting at a given position.
- */
-function extractJsonObject(text: string, maxBytes: number = 500): string | undefined {
-	let braceCount = 0;
-	let start = -1;
-	let end = -1;
-
-	for (let i = 0; i < text.length && i < maxBytes; i++) {
-		const c = text[i];
-		if (c === "{") {
-			if (start === -1) start = i;
-			braceCount++;
-		} else if (c === "}") {
-			braceCount--;
-			if (braceCount === 0 && start !== -1) {
-				end = i + 1;
-				break;
-			}
-			if (braceCount < 0) break;
-		}
-	}
-
-	if (start !== -1 && end !== -1) {
-		return text.slice(start, end);
-	}
-	return undefined;
-}
-
-/**
- * Fallback: Try to find any tool call JSON in the text.
- */
-function parseAnyToolCallJson(jsonText: string, availableTools: AgentTool<any>[] | undefined): ToolCall | undefined {
-	// Look for any {...} pattern with "name" and "arguments" keys
-	const anyJsonPattern = /\{"name"\s*:\s*"[^"]+"\s*,\s*"arguments"\s*:\s*\{[\s\S]*?\}/g;
-
-	for (const match of jsonText.matchAll(anyJsonPattern)) {
-		try {
-			const parsed = JSON.parse(match[0]);
-			if (parsed.name && parsed.arguments) {
-				const tool = availableTools?.find((t) => t.name === parsed.name);
-				if (tool) {
-					return {
-						type: "toolCall",
-						id: `intercepted-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-						name: parsed.name,
-						arguments: parsed.arguments,
-					};
-				}
-			}
-		} catch {
-			// Not valid JSON
-		}
-	}
-
-	// Last resort: look for bare tool names
-	return detectBareToolCall(jsonText, availableTools);
-}
-
-/**
- * Detect bare tool call like: {"name": "bash", "arguments": {...}}
- */
-function detectBareToolCall(text: string, availableTools: AgentTool<any>[] | undefined): ToolCall | undefined {
-	// Find tool names in quotes followed by arguments
-	const pattern = /"name"\s*:\s*"(\w+)"[\s\S]*?"arguments"\s*:\s*\{([\s\S]*?)\}/g;
-
-	for (const match of text.matchAll(pattern)) {
-		const toolName = match[1];
-		const tool = availableTools?.find((t) => t.name === toolName);
-		if (tool) {
-			return {
-				type: "toolCall",
-				id: `intercepted-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-				name: toolName,
-				arguments: {},
-			};
-		}
-	}
-
-	return undefined;
 }
 
 /**

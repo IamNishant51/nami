@@ -326,14 +326,6 @@ export async function createAgentSession(options: CreateAgentSessionOptions = {}
 		thinkingBudgets: settingsManager.getThinkingBudgets(),
 		maxRetryDelayMs: settingsManager.getRetrySettings().maxDelayMs,
 		interceptJsonToolCalls: true,
-		correctionPrompt: (jsonText) => {
-			// If it looks like tool schema definitions (array of tools), don't correct - just ignore
-			if (jsonText.includes('"parameters"') || jsonText.includes("[{")) {
-				return undefined;
-			}
-			// Otherwise correct the model
-			return `You printed JSON but did not use the tool call interface. Use the tool interface to call the tool, do not describe it.`;
-		},
 	});
 
 	// Restore messages if session has existing data
