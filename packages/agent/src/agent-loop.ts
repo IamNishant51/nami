@@ -251,25 +251,25 @@ async function runLoop(
 			}
 
 			// JSON-Sieve: Intercept and execute JSON tool calls from text
-			let interceptedToolCalls: ToolCall[] = [];
+			// Only execute ONE at a time to prevent infinite loops
+			let interceptedToolCall: ToolCall | undefined;
 			if (!hasMoreToolCalls && config.interceptJsonToolCalls) {
 				const textContent = message.content.find((c) => c.type === "text");
 				if (textContent && textContent.type === "text") {
-					interceptedToolCalls = parseAllInterceptedJsonToolCalls(textContent.text, currentContext.tools);
+					const toolCalls = parseAllInterceptedJsonToolCalls(textContent.text, currentContext.tools);
+					interceptedToolCall = toolCalls[0]; // Only first one
 				}
 			}
 
 			const toolResults: ToolResultMessage[] = [];
 
-			// Execute ALL intercepted JSON tool calls
-			if (interceptedToolCalls.length > 0) {
-				for (const toolCall of interceptedToolCalls) {
-					const result = await executeSingleToolCall(currentContext, toolCall, config, signal, emit);
-					if (result) {
-						toolResults.push(result);
-						currentContext.messages.push(result);
-						newMessages.push(result);
-					}
+			// Execute intercepted tool call ONE at a time
+			if (interceptedToolCall) {
+				const result = await executeSingleToolCall(currentContext, interceptedToolCall, config, signal, emit);
+				if (result) {
+					toolResults.push(result);
+					currentContext.messages.push(result);
+					newMessages.push(result);
 				}
 			} else if (hasMoreToolCalls) {
 				toolResults.push(...(await executeToolCalls(currentContext, message, config, signal, emit)));
