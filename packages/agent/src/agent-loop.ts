@@ -250,14 +250,15 @@ async function runLoop(
 				}
 			}
 
-			// JSON-Sieve: Intercept and execute JSON tool calls from text
-			// Only execute ONE at a time to prevent infinite loops
+			// JSON-Sieve: Only intercept if VERY explicit tool call pattern
+			// Must look EXACTLY like {"name": "...", "arguments": {...}}
 			let interceptedToolCall: ToolCall | undefined;
 			if (!hasMoreToolCalls && config.interceptJsonToolCalls) {
 				const textContent = message.content.find((c) => c.type === "text");
 				if (textContent && textContent.type === "text") {
-					const toolCalls = parseAllInterceptedJsonToolCalls(textContent.text, currentContext.tools);
-					interceptedToolCall = toolCalls[0]; // Only first one
+					// Only intercept if EXACT format - no extra text
+					// Must start with { and be complete JSON
+					interceptedToolCall = parseStrictToolCall(textContent.text, currentContext.tools);
 				}
 			}
 
@@ -809,33 +810,40 @@ function detectWrongIdentity(text: string): string | undefined {
 }
 
 /**
- * Parse JSON tool calls from model output text (JSON-Sieve).
- * Returns array of detected tool calls.
+ * Parse ONLY strict JSON tool calls - must be exact format.
+ * No fuzzy matching - prevents misinterpretation.
  */
-function parseAllInterceptedJsonToolCalls(jsonText: string, availableTools: AgentTool<any>[] | undefined): ToolCall[] {
-	if (!jsonText || !availableTools?.length) {
-		return [];
+function parseStrictToolCall(text: string, availableTools: AgentTool<any>[] | undefined): ToolCall | undefined {
+	if (!text || !availableTools?.length) {
+		return undefined;
 	}
 
-	const toolNames = new Set(availableTools.map((t) => t.name));
-	const found: ToolCall[] = [];
+	// Must be: {"name": "...", "arguments": {...}}
+	// AND start at beginning of text (no prepend)
+	// AND be complete valid JSON
+	const trimmed = text.trim();
+	if (!trimmed.startsWith("{")) {
+		return undefined;
+	}
 
-	// Fast pattern: find {"name": "toolname", "arguments": {...}}
-	const pattern = /"name"\s*:\s*"(\w+)"\s*,\s*"arguments"\s*:/g;
-
-	for (const match of jsonText.matchAll(pattern)) {
-		const toolName = match[1];
-		if (toolNames.has(toolName)) {
-			found.push({
-				type: "toolCall",
-				id: `call_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
-				name: toolName,
-				arguments: {},
-			});
+	try {
+		const parsed = JSON.parse(trimmed);
+		if (parsed.name && parsed.arguments && typeof parsed.name === "string") {
+			const tool = availableTools.find((t) => t.name === parsed.name);
+			if (tool) {
+				return {
+					type: "toolCall",
+					id: `call_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
+					name: parsed.name,
+					arguments: parsed.arguments || {},
+				};
+			}
 		}
+	} catch {
+		// Not valid JSON, ignore
 	}
 
-	return found;
+	return undefined;
 }
 
 /**

@@ -203,7 +203,7 @@ export class Agent {
 		this.transport = options.transport ?? "sse";
 		this.maxRetryDelayMs = options.maxRetryDelayMs;
 		this.toolExecution = options.toolExecution ?? "parallel";
-		this.interceptJsonToolCalls = options.interceptJsonToolCalls ?? true;
+		this.interceptJsonToolCalls = options.interceptJsonToolCalls ?? false;
 		this.correctionPrompt = options.correctionPrompt;
 	}
 
