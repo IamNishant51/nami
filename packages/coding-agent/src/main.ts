@@ -283,17 +283,19 @@ async function createSessionManager(
 	return SessionManager.create(cwd, sessionDir);
 }
 
-function buildSessionOptions(
+type BuildSessionOptionsResult = {
+	options: CreateAgentSessionOptions;
+	cliThinkingFromModel: boolean;
+	diagnostics: AgentSessionRuntimeDiagnostic[];
+};
+
+async function buildSessionOptions(
 	parsed: Args,
 	scopedModels: ScopedModel[],
 	hasExistingSession: boolean,
 	modelRegistry: ModelRegistry,
 	settingsManager: SettingsManager,
-): {
-	options: CreateAgentSessionOptions;
-	cliThinkingFromModel: boolean;
-	diagnostics: AgentSessionRuntimeDiagnostic[];
-} {
+): Promise<BuildSessionOptionsResult> {
 	const options: CreateAgentSessionOptions = {};
 	const diagnostics: AgentSessionRuntimeDiagnostic[] = [];
 	let cliThinkingFromModel = false;
@@ -302,7 +304,7 @@ function buildSessionOptions(
 	// - supports --provider <name> --model <pattern>
 	// - supports --model <provider>/<pattern>
 	if (parsed.model) {
-		const resolved = resolveCliModel({
+		const resolved = await resolveCliModel({
 			cliProvider: parsed.provider,
 			cliModel: parsed.model,
 			modelRegistry,
@@ -554,7 +556,7 @@ export async function main(args: string[]) {
 			options: sessionOptions,
 			cliThinkingFromModel,
 			diagnostics: sessionOptionDiagnostics,
-		} = buildSessionOptions(
+		} = await buildSessionOptions(
 			parsed,
 			scopedModels,
 			sessionManager.buildSessionContext().messages.length > 0,

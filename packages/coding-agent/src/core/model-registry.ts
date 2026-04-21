@@ -535,6 +535,10 @@ export class ModelRegistry {
 	 * Get API key for a model.
 	 */
 	hasConfiguredAuth(model: Model<Api>): boolean {
+		// Ollama doesn't need an API key - it's a local provider
+		if (model.provider === "ollama") {
+			return true;
+		}
 		return (
 			this.authStorage.hasAuth(model.provider) ||
 			this.providerRequestConfigs.get(model.provider)?.apiKey !== undefined
@@ -578,6 +582,15 @@ export class ModelRegistry {
 	 */
 	async getApiKeyAndHeaders(model: Model<Api>): Promise<ResolvedRequestAuth> {
 		try {
+			// Ollama doesn't require an API key - it's a local provider
+			if (model.provider === "ollama") {
+				return {
+					ok: true,
+					apiKey: undefined,
+					headers: undefined,
+				};
+			}
+
 			const providerConfig = this.providerRequestConfigs.get(model.provider);
 			const apiKeyFromAuthStorage = await this.authStorage.getApiKey(model.provider, { includeFallback: false });
 			const apiKey =

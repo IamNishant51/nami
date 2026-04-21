@@ -207,12 +207,12 @@ describe("parseModelPattern", () => {
 });
 
 describe("resolveCliModel", () => {
-	test("resolves --model provider/id without --provider", () => {
+	test("resolves --model provider/id without --provider", async () => {
 		const registry = {
 			getAll: () => allModels,
 		} as unknown as Parameters<typeof resolveCliModel>[0]["modelRegistry"];
 
-		const result = resolveCliModel({
+		const result = await resolveCliModel({
 			cliModel: "openai/gpt-4o",
 			modelRegistry: registry,
 		});
@@ -222,12 +222,12 @@ describe("resolveCliModel", () => {
 		expect(result.model?.id).toBe("gpt-4o");
 	});
 
-	test("resolves fuzzy patterns within an explicit provider", () => {
+	test("resolves fuzzy patterns within an explicit provider", async () => {
 		const registry = {
 			getAll: () => allModels,
 		} as unknown as Parameters<typeof resolveCliModel>[0]["modelRegistry"];
 
-		const result = resolveCliModel({
+		const result = await resolveCliModel({
 			cliProvider: "openai",
 			cliModel: "4o",
 			modelRegistry: registry,
@@ -238,12 +238,12 @@ describe("resolveCliModel", () => {
 		expect(result.model?.id).toBe("gpt-4o");
 	});
 
-	test("supports --model <pattern>:<thinking> (without explicit --thinking)", () => {
+	test("supports --model <pattern>:<thinking> (without explicit --thinking)", async () => {
 		const registry = {
 			getAll: () => allModels,
 		} as unknown as Parameters<typeof resolveCliModel>[0]["modelRegistry"];
 
-		const result = resolveCliModel({
+		const result = await resolveCliModel({
 			cliModel: "sonnet:high",
 			modelRegistry: registry,
 		});
@@ -253,12 +253,12 @@ describe("resolveCliModel", () => {
 		expect(result.thinkingLevel).toBe("high");
 	});
 
-	test("prefers exact model id match over provider inference (OpenRouter-style ids)", () => {
+	test("prefers exact model id match over provider inference (OpenRouter-style ids)", async () => {
 		const registry = {
 			getAll: () => allModels,
 		} as unknown as Parameters<typeof resolveCliModel>[0]["modelRegistry"];
 
-		const result = resolveCliModel({
+		const result = await resolveCliModel({
 			cliModel: "openai/gpt-4o:extended",
 			modelRegistry: registry,
 		});
@@ -268,12 +268,12 @@ describe("resolveCliModel", () => {
 		expect(result.model?.id).toBe("openai/gpt-4o:extended");
 	});
 
-	test("does not strip invalid :suffix as thinking level in --model (treat as raw id)", () => {
+	test("does not strip invalid :suffix as thinking level in --model (treat as raw id)", async () => {
 		const registry = {
 			getAll: () => allModels,
 		} as unknown as Parameters<typeof resolveCliModel>[0]["modelRegistry"];
 
-		const result = resolveCliModel({
+		const result = await resolveCliModel({
 			cliProvider: "openai",
 			cliModel: "gpt-4o:extended",
 			modelRegistry: registry,
@@ -284,12 +284,12 @@ describe("resolveCliModel", () => {
 		expect(result.model?.id).toBe("gpt-4o:extended");
 	});
 
-	test("allows custom model ids for explicit providers without double prefixing", () => {
+	test("allows custom model ids for explicit providers without double prefixing", async () => {
 		const registry = {
 			getAll: () => allModels,
 		} as unknown as Parameters<typeof resolveCliModel>[0]["modelRegistry"];
 
-		const result = resolveCliModel({
+		const result = await resolveCliModel({
 			cliProvider: "openrouter",
 			cliModel: "openrouter/openai/ghost-model",
 			modelRegistry: registry,
@@ -300,12 +300,12 @@ describe("resolveCliModel", () => {
 		expect(result.model?.id).toBe("openai/ghost-model");
 	});
 
-	test("returns a clear error when there are no models", () => {
+	test("returns a clear error when there are no models", async () => {
 		const registry = {
 			getAll: () => [],
 		} as unknown as Parameters<typeof resolveCliModel>[0]["modelRegistry"];
 
-		const result = resolveCliModel({
+		const result = await resolveCliModel({
 			cliProvider: "openai",
 			cliModel: "gpt-4o",
 			modelRegistry: registry,
@@ -315,7 +315,7 @@ describe("resolveCliModel", () => {
 		expect(result.error).toContain("No models available");
 	});
 
-	test("prefers provider/model split over gateway model with matching id", () => {
+	test("prefers provider/model split over gateway model with matching id", async () => {
 		// When a user writes "zai/glm-5", and both a zai provider model (id: "glm-5")
 		// and a gateway model (id: "zai/glm-5") exist, prefer the zai provider model.
 		const zaiModel: Model<"anthropic-messages"> = {
@@ -346,7 +346,7 @@ describe("resolveCliModel", () => {
 			getAll: () => [...allModels, zaiModel, gatewayModel],
 		} as unknown as Parameters<typeof resolveCliModel>[0]["modelRegistry"];
 
-		const result = resolveCliModel({
+		const result = await resolveCliModel({
 			cliModel: "zai/glm-5",
 			modelRegistry: registry,
 		});
@@ -356,12 +356,12 @@ describe("resolveCliModel", () => {
 		expect(result.model?.id).toBe("glm-5");
 	});
 
-	test("resolves provider-prefixed fuzzy patterns (openrouter/qwen -> openrouter model)", () => {
+	test("resolves provider-prefixed fuzzy patterns (openrouter/qwen -> openrouter model)", async () => {
 		const registry = {
 			getAll: () => allModels,
 		} as unknown as Parameters<typeof resolveCliModel>[0]["modelRegistry"];
 
-		const result = resolveCliModel({
+		const result = await resolveCliModel({
 			cliModel: "openrouter/qwen",
 			modelRegistry: registry,
 		});

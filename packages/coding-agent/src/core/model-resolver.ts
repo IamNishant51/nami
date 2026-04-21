@@ -11,7 +11,7 @@ import { DEFAULT_THINKING_LEVEL } from "./defaults.js";
 import type { ModelRegistry } from "./model-registry.js";
 
 /** Default model IDs for each known provider */
-export const defaultModelPerProvider: Record<KnownProvider, string> = {
+export const defaultModelPerProvider: Partial<Record<KnownProvider, string>> & Record<string, string> = {
 	"amazon-bedrock": "us.anthropic.claude-opus-4-6-v1",
 	anthropic: "claude-opus-4-6",
 	openai: "gpt-5.4",
@@ -35,7 +35,70 @@ export const defaultModelPerProvider: Record<KnownProvider, string> = {
 	opencode: "claude-opus-4-6",
 	"opencode-go": "kimi-k2.5",
 	"kimi-coding": "kimi-k2-thinking",
+	ollama: "qwen2.5-coder:latest",
 };
+
+/**
+ * Check if Ollama is running and if the model exists
+ */
+let ollamaCache: { models: string[]; timestamp: number } | null = null;
+const OLLAMA_CACHE_TTL = 60000; // 1 minute
+
+export async function checkOllamaModel(modelId: string): Promise<Model<"ollama"> | null> {
+	try {
+		// Check cache first
+		if (ollamaCache && Date.now() - ollamaCache.timestamp < OLLAMA_CACHE_TTL) {
+			if (ollamaCache.models.includes(modelId)) {
+				return {
+					api: "ollama",
+					provider: "ollama",
+					id: modelId,
+					name: modelId,
+					contextWindow: 131072,
+					maxTokens: 8192,
+					baseUrl: "http://localhost:11434",
+					reasoning: false,
+					input: ["text"],
+					cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+				};
+			}
+			return null;
+		}
+
+		// Fetch from Ollama
+		const response = await fetch("http://localhost:11434/api/tags", { signal: AbortSignal.timeout(5000) });
+		if (!response.ok) return null;
+
+		const data = (await response.json()) as { models: { name: string }[] };
+		ollamaCache = { models: data.models?.map((m) => m.name) || [], timestamp: Date.now() };
+
+		if (ollamaCache.models.includes(modelId)) {
+			return {
+				api: "ollama",
+				provider: "ollama",
+				id: modelId,
+				name: modelId,
+				contextWindow: 131072,
+				maxTokens: 8192,
+				baseUrl: "http://localhost:11434",
+				reasoning: false,
+				input: ["text"],
+				cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+			};
+		}
+		return null;
+	} catch {
+		return null;
+	}
+}
+
+/**
+ * Try to auto-detect if a model should use Ollama
+ */
+export async function tryAutoDetectOllama(modelPattern: string): Promise<Model<"ollama"> | null> {
+	// Try to find the model in Ollama
+	return checkOllamaModel(modelPattern);
+}
 
 export interface ScopedModel {
 	model: Model<Api>;
@@ -321,15 +384,16 @@ export interface ResolveCliModelResult {
  * - --provider <provider> --model <pattern>
  * - --model <provider>/<pattern>
  * - Fuzzy matching (same rules as model scoping: exact id, then partial id/name)
+ * - Auto-detection of Ollama models when no match is found
  *
  * Note: This does not apply the thinking level by itself, but it may *parse* and
  * return a thinking level from "<pattern>:<thinking>" so the caller can apply it.
  */
-export function resolveCliModel(options: {
+export async function resolveCliModel(options: {
 	cliProvider?: string;
 	cliModel?: string;
 	modelRegistry: ModelRegistry;
-}): ResolveCliModelResult {
+}): Promise<ResolveCliModelResult> {
 	const { cliProvider, cliModel, modelRegistry } = options;
 
 	if (!cliModel) {
@@ -449,6 +513,18 @@ export function resolveCliModel(options: {
 	}
 
 	const display = provider ? `${provider}/${pattern}` : cliModel;
+
+	// Try Ollama auto-detection as fallback for unknown models
+	const ollamaModel = await tryAutoDetectOllama(cliModel);
+	if (ollamaModel) {
+		return {
+			model: ollamaModel,
+			thinkingLevel: undefined,
+			warning: `Auto-detected local Ollama model "${cliModel}". Tool calling is enabled for Nami coding tools; ensure Ollama is running.`,
+			error: undefined,
+		};
+	}
+
 	return {
 		model: undefined,
 		thinkingLevel: undefined,
@@ -497,7 +573,7 @@ export async function findInitialModel(options: {
 
 	// 1. CLI args take priority
 	if (cliProvider && cliModel) {
-		const resolved = resolveCliModel({
+		const resolved = await resolveCliModel({
 			cliProvider,
 			cliModel,
 			modelRegistry,

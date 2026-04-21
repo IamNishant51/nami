@@ -320,7 +320,7 @@ export class AgentSession {
 	}
 
 	private async _getRequiredRequestAuth(model: Model<any>): Promise<{
-		apiKey: string;
+		apiKey: string | undefined;
 		headers?: Record<string, string>;
 	}> {
 		const result = await this._modelRegistry.getApiKeyAndHeaders(model);
@@ -329,6 +329,12 @@ export class AgentSession {
 		}
 		if (result.apiKey) {
 			return { apiKey: result.apiKey, headers: result.headers };
+		}
+
+		// Some providers don't need an API key (e.g., Ollama for local models)
+		const noApiKeyNeeded = model.provider === "ollama";
+		if (noApiKeyNeeded) {
+			return { apiKey: undefined, headers: result.headers };
 		}
 
 		const isOAuth = this._modelRegistry.isUsingOAuth(model);
@@ -522,6 +528,7 @@ export class AgentSession {
 				// Regular LLM message - persist as SessionMessageEntry
 				this.sessionManager.appendMessage(event.message);
 			}
+
 			// Other message types (bashExecution, compactionSummary, branchSummary) are persisted elsewhere
 
 			// Track assistant message for auto-compaction (checked on agent_end)
@@ -885,6 +892,11 @@ export class AgentSession {
 			if (toolGuidelines) {
 				promptGuidelines.push(...toolGuidelines);
 			}
+		}
+		if (this.model?.provider === "ollama" || this.model?.api === "ollama") {
+			promptGuidelines.push(
+				"Use tools through the provided tool interface; do not print tool-call JSON as the user-visible answer.",
+			);
 		}
 
 		const loaderSystemPrompt = this._resourceLoader.getSystemPrompt();
@@ -1586,6 +1598,8 @@ export class AgentSession {
 			}
 
 			const { apiKey, headers } = await this._getRequiredRequestAuth(this.model);
+			// For non-Ollama models, apiKey should be defined; for Ollama it may be undefined
+			const effectiveApiKey = apiKey ?? "";
 
 			const pathEntries = this.sessionManager.getBranch();
 			const settings = this.settingsManager.getCompactionSettings();
@@ -1638,7 +1652,7 @@ export class AgentSession {
 				const result = await compact(
 					preparation,
 					this.model,
-					apiKey,
+					effectiveApiKey,
 					headers,
 					customInstructions,
 					this._compactionAbortController.signal,
@@ -2721,9 +2735,11 @@ export class AgentSession {
 			const model = this.model!;
 			const { apiKey, headers } = await this._getRequiredRequestAuth(model);
 			const branchSummarySettings = this.settingsManager.getBranchSummarySettings();
+			// For non-Ollama models, apiKey should be defined; for Ollama it may be undefined
+			const summaryApiKey = apiKey ?? "";
 			const result = await generateBranchSummary(entriesToSummarize, {
 				model,
-				apiKey,
+				apiKey: summaryApiKey,
 				headers,
 				signal: this._branchSummaryAbortController.signal,
 				customInstructions,

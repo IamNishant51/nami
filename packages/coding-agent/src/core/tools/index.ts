@@ -63,6 +63,14 @@ export {
 	readToolDefinition,
 } from "./read.js";
 export {
+	createTodoTool,
+	createTodoToolDefinition,
+	type TodoItem,
+	type TodoState,
+	type TodoToolDetails,
+	type TodoToolInput,
+} from "./todo.js";
+export {
 	DEFAULT_MAX_BYTES,
 	DEFAULT_MAX_LINES,
 	formatSize,
@@ -102,6 +110,7 @@ import {
 	readTool,
 	readToolDefinition,
 } from "./read.js";
+import { createTodoTool, createTodoToolDefinition, getTodoStateRef, todoTool, todoToolDefinition } from "./todo.js";
 import { createWriteTool, createWriteToolDefinition, writeTool, writeToolDefinition } from "./write.js";
 
 export type Tool = AgentTool<any>;
@@ -118,6 +127,7 @@ export const allTools = {
 	grep: grepTool,
 	find: findTool,
 	ls: lsTool,
+	todowrite: todoTool,
 };
 
 export const allToolDefinitions = {
@@ -128,6 +138,7 @@ export const allToolDefinitions = {
 	grep: grepToolDefinition,
 	find: findToolDefinition,
 	ls: lsToolDefinition,
+	todowrite: todoToolDefinition,
 };
 
 export type ToolName = keyof typeof allTools;
@@ -164,6 +175,7 @@ export function createAllToolDefinitions(cwd: string, options?: ToolsOptions): R
 		grep: createGrepToolDefinition(cwd),
 		find: createFindToolDefinition(cwd),
 		ls: createLsToolDefinition(cwd),
+		todowrite: createTodoToolDefinition(getTodoStateRef()),
 	};
 }
 
@@ -189,5 +201,6 @@ export function createAllTools(cwd: string, options?: ToolsOptions): Record<Tool
 		grep: createGrepTool(cwd),
 		find: createFindTool(cwd),
 		ls: createLsTool(cwd),
+		todowrite: createTodoTool(getTodoStateRef()),
 	};
 }

@@ -42,6 +42,21 @@ describe("buildSystemPrompt", () => {
 			expect(prompt).toContain("- edit:");
 			expect(prompt).toContain("- write:");
 		});
+
+		test("does not instruct local models to print JSON tool calls", () => {
+			const prompt = buildSystemPrompt({
+				toolSnippets: {
+					read: "Read file contents",
+					bash: "Execute bash commands",
+				},
+				contextFiles: [],
+				skills: [],
+			});
+
+			expect(prompt).not.toContain("Output ONLY JSON");
+			expect(prompt).toContain("Available tools:");
+			expect(prompt).toContain("Call tools through the provided tool interface");
+		});
 	});
 
 	describe("custom tool snippets", () => {

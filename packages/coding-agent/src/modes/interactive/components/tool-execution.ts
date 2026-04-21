@@ -314,15 +314,53 @@ export class ToolExecutionComponent extends Container {
 	}
 
 	private formatToolExecution(): string {
+		const statusIcon = this.executionStarted ? "⟳" : "○";
+		const statusText = this.executionStarted ? "Running..." : "Pending";
+
 		let text = theme.fg("toolTitle", theme.bold(this.toolName));
-		const content = JSON.stringify(this.args, null, 2);
-		if (content) {
-			text += `\n\n${content}`;
+		text += ` ${theme.fg("muted", `${statusIcon} ${statusText}`)}`;
+
+		if (this.executionStarted && !this.argsComplete) {
+			const argsSummary = this.summarizeArgs();
+			if (argsSummary) {
+				text += `\n${theme.fg("muted", argsSummary)}`;
+			}
+		} else if (this.argsComplete && !this.result) {
+			text += `\n${theme.fg("toolOutput", "Executing...")}`;
+		} else if (this.result) {
+			const output = this.getTextOutput();
+			if (output) {
+				text += `\n${output}`;
+			}
 		}
-		const output = this.getTextOutput();
-		if (output) {
-			text += `\n${output}`;
-		}
+
 		return text;
+	}
+
+	private summarizeArgs(): string | undefined {
+		if (!this.args || typeof this.args !== "object") {
+			return undefined;
+		}
+
+		const entries = Object.entries(this.args);
+		if (entries.length === 0) {
+			return undefined;
+		}
+
+		const summaryParts: string[] = [];
+		for (const [key, value] of entries) {
+			if (key === "command" || key === "cmd") {
+				const cmdStr = typeof value === "string" ? value : JSON.stringify(value);
+				summaryParts.push(`cmd: ${cmdStr.slice(0, 50)}${cmdStr.length > 50 ? "..." : ""}`);
+			} else if (key === "path" || key === "file_path" || key === "file") {
+				const pathStr = typeof value === "string" ? value : JSON.stringify(value);
+				summaryParts.push(`path: ${pathStr}`);
+			} else if (key === "text" || key === "query" || key === "pattern") {
+				const textStr = typeof value === "string" ? value : JSON.stringify(value);
+				summaryParts.push(`${key}: ${textStr.slice(0, 30)}${textStr.length > 30 ? "..." : ""}`);
+			}
+		}
+
+		return summaryParts.length > 0 ? summaryParts.join(", ") : undefined;
 	}
 }
